@@ -19,8 +19,9 @@ ParameterSweep::ParameterSweep(const std::string& output_dir)
 }
 
 void ParameterSweep::run(int num_samples, int num_reruns, int num_sims, int num_timesteps) {
-    std::vector<std::string> output_lines;  // Buffer for storing result lines
     std::cout << "Starting parameter sweep..." << std::endl;
+    auto start_time = std::chrono::high_resolution_clock::now();
+    std::vector<std::string> output_lines;  // Buffer for storing result lines
 
     // Define parameter ranges for LHS
     std::vector<LHSSampler::ParameterRange> ranges = {
@@ -42,9 +43,7 @@ void ParameterSweep::run(int num_samples, int num_reruns, int num_sims, int num_
 
     // Enqueue tasks in the thread pool
     for (int i = 0; i < num_samples; ++i) {
-        pool.enqueue([this, &samples, i, &output_lines, num_reruns, num_sims, num_timesteps, num_samples]() {
             auto start_time = std::chrono::high_resolution_clock::now();
-            std::cout << "Starting sample " << (i + 1) << " of " << num_samples << "..." << std::endl;
 
             // Generate sample configuration
             SimulationConfig config;
@@ -90,7 +89,6 @@ void ParameterSweep::run(int num_samples, int num_reruns, int num_sims, int num_
 
             // Append the result line to the buffer (output_lines)
             output_lines.push_back(line.str());
-        });
     }
 
     // Wait for all tasks to finish
@@ -107,6 +105,9 @@ void ParameterSweep::run(int num_samples, int num_reruns, int num_sims, int num_
     }
 
     std::cout << "Parameter sweep completed. Results saved to: " << filename << std::endl;
+    auto end_time = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
+    std::cout << "Total time taken: " << duration.count() << " milliseconds" << std::endl;
 }
 
 std::tuple<double, double, double, double> ParameterSweep::runSingleSample(
@@ -132,6 +133,7 @@ std::tuple<double, double, double, double> ParameterSweep::runSingleSample(
             controller.initialize();
             controller.runForTimesteps(num_timesteps);
             controller.end();
+
             
             // Get final population counts
             auto report = controller.getReport();
@@ -140,7 +142,6 @@ std::tuple<double, double, double, double> ParameterSweep::runSingleSample(
         }
         auto t2 = std::chrono::high_resolution_clock::now();
         auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1);
-        std::cout << "\tTime taken for rerun " << (rerun + 1) << ": " << duration.count() << " milliseconds" << " for " << num_sims << " simulations" << std::endl;
 
         // Calculate means for this rerun
         double prey_mean = std::accumulate(prey_counts.begin(), prey_counts.end(), 0.0) / prey_counts.size();
@@ -149,7 +150,7 @@ std::tuple<double, double, double, double> ParameterSweep::runSingleSample(
         prey_means.push_back(prey_mean);
         pred_means.push_back(pred_mean);
     }
-    
+
     // Calculate overall statistics
     double prey_avg = std::accumulate(prey_means.begin(), prey_means.end(), 0.0) / prey_means.size();
     double pred_avg = std::accumulate(pred_means.begin(), pred_means.end(), 0.0) / pred_means.size();

@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <cmath>
 #include <climits>
+#include <omp.h>
 
 std::mt19937 SimulationController::rng(std::random_device{}());
 std::uniform_real_distribution<double> SimulationController::reproDist(0, 1);
@@ -92,19 +93,102 @@ void SimulationController::initialize() {
 void SimulationController::updateSingleTimestep() {
     // Get all agents from grid
     double t = 0;
+    auto agents = grid.getAgents();
+    int agentCount = agents.size();
+    std::shuffle(std::begin(agents), std::end(agents), SimulationController::rng);
 
-    while (t < 1.0 && agentCount() > 0) {
-        t += 1.0 / agentCount();
-        size_t randomIndex = randomAgentIndex();
-        std::shared_ptr<Agent> agent = grid.getAgents()[randomIndex];
-        if (agent) {
-            updateSingleAgent(agent);
+    // Buffer for new agents
+    std::vector<std::shared_ptr<Agent>> newAgents;
+    newAgents.reserve(this->agentCount() / 4); // Reserve some space based on expected growth
+    
+    // Track agents to remove
+    std::vector<std::shared_ptr<Agent>> deadAgents;
+    deadAgents.reserve(this->agentCount() / 4);
+
+    // #pragma omp parallel for schedule(dynamic)  
+    // Batch update all agent positions first
+    for (size_t i = 0; i < agentCount; ++i) {
+        auto agent = agents[i];
+        
+        if (!agent->isAlive()) continue;
+                double m = (agent->getType() == Agent::Type::PREY) ? 
+                   context.getConfig().MR : 
+                   context.getConfig().MF;
+
+        // Clamp the new position to the grid
+        Position oldPosition = agent->getPosition();
+        Position newPosition = agent->getPosition() + randomDirection() * m;
+        newPosition.x = std::clamp(newPosition.x, 0.0, 1.0);
+        newPosition.y = std::clamp(newPosition.y, 0.0, 1.0);
+
+        // Make sure to update the agent's internal position too
+        // This should be the only place where the agent's position is updated
+        agent->setPosition(newPosition);
+        grid.moveAgent(agent, oldPosition, newPosition);
+
+        // Check for interactions
+        bool hasInteraction = grid.hasOppositeTypeNeighbor(agent, context.getConfig().interactionRadius);
+        
+        // Get action based on type and situation
+        AgentAction::Action action = agent->getAction(hasInteraction);
+        
+        // Process the action
+        if (action == AgentAction::DIE) {
+            agent->die();
+            //#pragma omp critical
+            {
+                deadAgents.push_back(agent);
+                if (agent->getType() == Agent::PREDATOR) {
+                    decrementPredatorCount();
+                } else {
+                    decrementPreyCount();
+                }
+            }
+        }
+
+        else if (action == AgentAction::REPRODUCE) {
+            // Create a new agent of the same type
+            Position newPos = agent->getPosition(); // For simplicity, same position
+            
+            // #pragma omp critical
+            {
+                if (agent->getType() == Agent::PREDATOR) {
+                    newAgents.push_back(std::make_shared<Predator>(newPos, context));
+                    incrementPredatorCount();
+                } else {
+                    newAgents.push_back(std::make_shared<Prey>(newPos, context));
+                    incrementPreyCount();
+                }
+            }
         }
     }
 
+    // Remove dead agents
+    for (const auto& agent : deadAgents) {
+        grid.removeAgent(agent);
+    }
+
+    // Add new agents
+    for (const auto& agent : newAgents) {
+        grid.addAgent(agent);
+    }
+    
     currentStep++;
     // Update history
     updateHistory();
+
+    // while (t < 1.0 && this->agentCount() > 0) {
+    //     t += 1.0 / this->agentCount();
+    //     size_t randomIndex = randomAgentIndex();
+    //     std::shared_ptr<Agent> agent = grid.getAgents()[randomIndex];
+    //     if (agent) {
+    //         updateSingleAgent(agent);
+    //     }
+    // }
+
+    // currentStep++;
+    // // Update history
+    // updateHistory();
 }
 
 // void SimulationController::updateSingleTimestep() {
@@ -120,70 +204,8 @@ void SimulationController::updateSingleTimestep() {
 //     const double DF = context.getConfig().DF;  // Death rate of predator when no prey around
 //     const double RF = context.getConfig().RF;  // Reproduction rate of predator
     
-//     // Use a buffer for new agents to avoid modifying the collection during iteration
-//     std::vector<std::shared_ptr<Agent>> newAgents;
-//     newAgents.reserve(agentCount / 4); // Reserve some space based on expected growth
     
-//     // Track agents to remove
-//     std::vector<std::shared_ptr<Agent>> deadAgents;
-//     deadAgents.reserve(agentCount / 4);
-    
-//     // Batch update all agent positions first
-//     #pragma omp parallel for schedule(dynamic)
-//     for (size_t i = 0; i < agentCount; ++i) {
-//         auto agent = agents[i];
-        
-//         if (!agent->isAlive()) continue;
-        
-//         // Check for interactions
-//         bool hasInteraction = grid.hasOppositeTypeNeighbor(agent, interactionRadius);
-        
-//         // Get action based on type and situation
-//         AgentAction::Action action = agent->getAction(hasInteraction);
-        
-//         // Process the action
-//         if (action == AgentAction::DIE) {
-//             agent->die();
-//             #pragma omp critical
-//             {
-//                 deadAgents.push_back(agent);
-//                 if (agent->getType() == Agent::PREDATOR) {
-//                     decrementPredatorCount();
-//                 } else {
-//                     decrementPreyCount();
-//                 }
-//             }
-//         }
-//         else if (action == AgentAction::REPRODUCE) {
-//             // Create a new agent of the same type
-//             Position newPos = agent->getPosition(); // For simplicity, same position
-            
-//             #pragma omp critical
-//             {
-//                 if (agent->getType() == Agent::PREDATOR) {
-//                     newAgents.push_back(std::make_shared<Predator>(newPos, context));
-//                     incrementPredatorCount();
-//                 } else {
-//                     newAgents.push_back(std::make_shared<Prey>(newPos, context));
-//                     incrementPreyCount();
-//                 }
-//             }
-//         }
-//     }
 
-//     // Remove dead agents
-//     for (const auto& agent : deadAgents) {
-//         grid.removeAgent(agent);
-//     }
-
-//     // Add new agents
-//     for (const auto& agent : newAgents) {
-//         grid.addAgent(agent);
-//     }
-    
-//     currentStep++;
-//     // Update history
-//     updateHistory();
 // }
 
 void SimulationController::updateSingleAgent(std::shared_ptr<Agent> agent){

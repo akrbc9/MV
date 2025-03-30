@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(predator_prey VERSION 1.0)
 
 # Set C++ standard and architecture
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -arch arm64")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -arch arm64 -fopenmp")
 set(CMAKE_OSX_ARCHITECTURES "arm64")
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_LINKER "/usr/bin/ld")
@@ -14,6 +14,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
 # Find SFML first so we can use its include paths
+find_package(OpenMP REQUIRED)
 find_package(SFML 3.0 COMPONENTS Graphics Window System REQUIRED)
 
 # Add include directories

@@ -45,51 +45,77 @@ def plot_results(df):
     """Create visualizations of the parameter sweep results"""
     # Set up the plotting style
     plt.style.use('seaborn')
-    
+    df['normalized_prey'] = df['avg_prey'] / df['nr']
+    print(df.head())
     # Create a figure with subplots
-    fig = plt.figure(figsize=(15, 10))
-    
-    # Plot 1: Parameter distributions
-    ax1 = plt.subplot(221)
-    sns.boxplot(data=df[['nr', 'dr', 'df', 'rf']], ax=ax1)
+    fig = plt.figure(figsize=(18, 12))
+
+    # Plot 1: Parameter distributions (boxplot for each parameter)
+    ax1 = plt.subplot(231)
+    # Use melt to reshape the DataFrame and pass to sns.boxplot
+    df_melted = df[['nr', 'dr', 'df', 'rf']].melt(var_name='Parameter', value_name='Value')
+    sns.boxplot(x='Parameter', y='Value', data=df_melted, ax=ax1)
     ax1.set_title('Parameter Distributions')
     ax1.set_ylabel('Value')
-    
-    # Plot 2: Prey vs Predator populations
-    ax2 = plt.subplot(222)
+
+    # Plot 2: Prey vs Predator populations (with error bars)
+    ax2 = plt.subplot(232)
     ax2.errorbar(df['avg_prey'], df['avg_predators'],  # Changed from avg_pred to avg_predators
-                xerr=df['std_prey'], yerr=df['std_predators'],
-                fmt='o', alpha=0.5)
+                 xerr=df['std_prey'], yerr=df['std_predators'],
+                 fmt='o', alpha=0.5)
     ax2.set_xlabel('Average Prey Population')
     ax2.set_ylabel('Average Predator Population')
     ax2.set_title('Prey vs Predator Populations')
-    
-    # Plot 3: Parameter correlations
-    ax3 = plt.subplot(223)
+
+    # Plot 3: Parameter correlations (heatmap)
+    ax3 = plt.subplot(233)
     sns.heatmap(df[['nr', 'dr', 'df', 'rf', 'avg_prey', 'avg_predators']].corr(),
                 annot=True, cmap='coolwarm', ax=ax3)
     ax3.set_title('Parameter Correlations')
-    
-    # Plot 4: Population stability
-    ax4 = plt.subplot(224)
+
+    # Plot 4: Population stability (scatter of CVs)
+    ax4 = plt.subplot(234)
     ax4.scatter(df['std_prey'] / df['avg_prey'],
                 df['std_predators'] / df['avg_predators'],
                 alpha=0.5)
     ax4.set_xlabel('Prey Population CV')
     ax4.set_ylabel('Predator Population CV')
     ax4.set_title('Population Stability')
+
+    # Plot 5: Distribution of Prey Population (Histogram)
+    ax5 = plt.subplot(235)
     
+    # Normalize prey population by carrying capacity (nr)
+    df = df[np.isfinite(df['normalized_prey'])]
+    
+    # sns.histplot(df['normalized_prey'], kde=True, bins=20, color='blue', ax=ax5)
+    ax5.hist(df['normalized_prey'].to_numpy(), bins='auto', color='blue')
+
+    ax5.set_xlabel('Normalized Prey Population (avg_prey / nr)')
+    ax5.set_ylabel('Frequency')
+    ax5.set_title('Distribution of Normalized Prey Population')
+
+
+    # Plot 6: Distribution of Predator Population (Histogram)
+    ax6 = plt.subplot(236)
+    ax6.hist(df['avg_predators'].to_numpy(), bins='auto', color='red')
+    ax6.set_xlabel('Average Predator Population')
+    ax6.set_ylabel('Frequency')
+    ax6.set_title('Distribution of Predator Population')
+
     plt.tight_layout()
     plt.show()
+
+
 
 def main():
     # Run parameter sweep
     print("Running parameter sweep...")
     df = run_parameter_sweep(
-        num_samples=100,    # Number of different parameter combinations
+        num_samples=200,    # Number of different parameter combinations
         num_reruns=2,       # Number of times to rerun each combination
         num_sims=5,         # Number of simulations per rerun
-        num_timesteps=300,  # Number of timesteps per simulation
+        num_timesteps=500,  # Number of timesteps per simulation
         output_dir="./results"
     )
     

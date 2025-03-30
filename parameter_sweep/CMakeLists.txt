@@ -2,13 +2,16 @@ cmake_minimum_required(VERSION 3.14)
 project(parameter_sweep VERSION 1.0)
 
 # Set C++ standard and architecture
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -arch arm64")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -arch arm64 -fopenmp")
 set(CMAKE_OSX_ARCHITECTURES "arm64")
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_LINKER "/usr/bin/ld")
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 
 # Find SFML
 find_package(SFML 3.0 COMPONENTS Graphics Window System REQUIRED)
+find_package(OpenMP REQUIRED)
 
 # Add include directories
 include_directories(
