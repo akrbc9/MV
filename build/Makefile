@@ -347,6 +347,30 @@ src/simulation_report.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey_lib.dir/build.make CMakeFiles/predator_prey_lib.dir/src/simulation_report.cpp.s
 .PHONY : src/simulation_report.cpp.s
 
+src/spatial_hash.o: src/spatial_hash.cpp.o
+.PHONY : src/spatial_hash.o
+
+# target to build an object file
+src/spatial_hash.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey_lib.dir/build.make CMakeFiles/predator_prey_lib.dir/src/spatial_hash.cpp.o
+.PHONY : src/spatial_hash.cpp.o
+
+src/spatial_hash.i: src/spatial_hash.cpp.i
+.PHONY : src/spatial_hash.i
+
+# target to preprocess a source file
+src/spatial_hash.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey_lib.dir/build.make CMakeFiles/predator_prey_lib.dir/src/spatial_hash.cpp.i
+.PHONY : src/spatial_hash.cpp.i
+
+src/spatial_hash.s: src/spatial_hash.cpp.s
+.PHONY : src/spatial_hash.s
+
+# target to generate assembly for a file
+src/spatial_hash.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey_lib.dir/build.make CMakeFiles/predator_prey_lib.dir/src/spatial_hash.cpp.s
+.PHONY : src/spatial_hash.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -382,6 +406,9 @@ help:
 	@echo "... src/simulation_report.o"
 	@echo "... src/simulation_report.i"
 	@echo "... src/simulation_report.s"
+	@echo "... src/spatial_hash.o"
+	@echo "... src/spatial_hash.i"
+	@echo "... src/spatial_hash.s"
 .PHONY : help
 
 

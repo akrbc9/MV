@@ -3,7 +3,6 @@
 #include <string>
 
 struct SimulationConfig {
-    
     // World parameters
     double worldWidth;
     double worldHeight;
@@ -32,7 +31,7 @@ struct SimulationConfig {
     double RF;    // Reproduction rate of predator (formerly PRR)
     
     // Output parameters
-    bool saveStatistics;
+    bool saveStatistics = true;
     std::string outputFile;
     
     // Load configuration from a file

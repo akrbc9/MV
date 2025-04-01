@@ -29,7 +29,7 @@ def run_simulation(samples, num_reruns, num_sims, num_timesteps):
     os.makedirs(output_dir, exist_ok=True)
     
     # Run the C++ executable from the build/bin directory
-    executable_path = os.path.join("..","build", "bin", "parameter_sweep")
+    executable_path = os.path.join("build", "bin", "parameter_sweep")
     cmd = [
         executable_path,
         "--samples", str(len(samples)),

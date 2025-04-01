@@ -6,18 +6,40 @@
 void printReport(const SimulationReport& report) {
     std::cout << "\n=== Simulation Report ===\n";
     std::cout << "Execution time: " << report.executionTime.count() << "ms\n";
-    std::cout << "Total steps: " << report.totalSteps << "\n";
+    std::cout << "Total steps: " << report.timeSteps << "\n";
     std::cout << "Final population:\n";
     std::cout << "  Predators: " << report.finalPredatorCount << "\n";
     std::cout << "  Prey: " << report.finalPreyCount << "\n\n";
     
     std::cout << "Population History:\n";
     std::cout << std::setw(8) << "Step" << std::setw(12) << "Predators" << std::setw(12) << "Prey\n";
-    for (size_t i = 0; i < report.predatorCounts.size(); ++i) {
+
+    std::vector<int> reportPreyHistory = report.getPreyHistory();
+    std::vector<int> reportPredatorHistory = report.getPredatorHistory();
+    for (size_t i = 0; i < reportPreyHistory.size(); ++i) {
         std::cout << std::setw(8) << i 
-                  << std::setw(12) << report.predatorCounts[i]
-                  << std::setw(12) << report.preyCounts[i] << "\n";
+                  << std::setw(12) << reportPredatorHistory[i]
+                  << std::setw(12) << reportPreyHistory[i] << "\n";
     }
+    std::cout << "\nSimulation Configuration:\n";
+    std::cout << "  World Size: " << report.getSimulationConfig().worldWidth << " x " 
+              << report.getSimulationConfig().worldHeight << "\n";
+    std::cout << "  Initial Predators: " << report.getSimulationConfig().initialPredators << "\n";
+    std::cout << "  Initial Prey: " << report.getSimulationConfig().initialPrey << "\n";
+    std::cout << "  Movement Magnitude (Predators): " << report.getSimulationConfig().MF << "\n";
+    std::cout << "  Movement Magnitude (Prey): " << report.getSimulationConfig().MR << "\n";
+    std::cout << "  Interaction Radius: " << report.getSimulationConfig().interactionRadius << "\n";
+    std::cout << "  Cell Size: " << report.getSimulationConfig().cellSize << "\n";
+    std::cout << "  Simulation Steps: " << report.getSimulationConfig().simulationSteps << "\n";
+
+    std::cout << "  Carrying Capacity of Prey: " << report.getSimulationConfig().NR << "\n";
+    std::cout << "  Reproduction Rate of Prey: " << report.getSimulationConfig().RR << "\n";
+    std::cout << "  Death Rate of Prey: " << report.getSimulationConfig().DR << "\n";
+    std::cout << "  Death Rate of Predator: " << report.getSimulationConfig().DF << "\n";
+    std::cout << "  Reproduction Rate of Predator: " << report.getSimulationConfig().RF << "\n";
+    std::cout << "  Save Statistics: " << (report.getSimulationConfig().saveStatistics ? "Yes" : "No") << "\n";
+    std::cout << "  Output File: " << report.getSimulationConfig().outputFile << "\n";
+    std::cout << "=========================\n";
 }
 
 int main() {
@@ -59,9 +81,10 @@ int main() {
     // Create and run simulation
 
     controller.initialize();
+    std::cout << "After Initialize" << std::endl;
     controller.runForTimesteps(config.simulationSteps);
     controller.end();
-            
+    std::cout << "After END" << std::endl;
     // Get and print report
     SimulationReport report = controller.getReport();
     printReport(report);

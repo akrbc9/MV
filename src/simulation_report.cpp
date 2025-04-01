@@ -3,9 +3,6 @@
 #include <algorithm>
 #include <SFML/Graphics.hpp>
 
-SimulationReport::SimulationReport(const std::vector<int>& prey_history, const std::vector<int>& predator_history)
-    : prey_history_(prey_history), predator_history_(predator_history) {}
-
 void SimulationReport::visualize() {
     sf::RenderWindow window(sf::VideoMode(sf::Vector2u(WINDOW_WIDTH, WINDOW_HEIGHT)), "Simulation Report");
     window.setFramerateLimit(60);

@@ -12,8 +12,8 @@ def run_parameter_sweep(num_samples=100, num_reruns=5, num_sims=10, num_timestep
     
     # Get the absolute path to the executable
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    project_root = os.path.dirname(os.path.dirname(os.path.dirname(current_dir)))
-    executable_path = os.path.join(project_root,"MV", "build", "bin", "parameter_sweep")
+    project_root = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(current_dir))))
+    executable_path = os.path.join(project_root,"UM25", "Learning", "MV", "build", "bin", "parameter_sweep")
     
     print(f"Looking for executable at: {executable_path}")
     if not os.path.exists(executable_path):
@@ -46,7 +46,7 @@ def plot_results(df):
     # Set up the plotting style
     plots_dir = os.path.join(".", "plots")
     os.makedirs(plots_dir, exist_ok=True)
-    plt.style.use('seaborn')
+    plt.style.use('seaborn-v0_8')
     df['normalized_prey'] = df['avg_prey'] / df['nr']
     print(df.head())
     # Create a figure with subplots
@@ -62,7 +62,7 @@ def plot_results(df):
 
     # Plot 2: Prey vs Predator populations (with error bars)
     ax2 = plt.subplot(232)
-    ax2.errorbar(df['avg_prey'], df['avg_predators'],  # Changed from avg_pred to avg_predators
+    ax2.errorbar(df['normalized_prey'], df['avg_predators'],  # Changed from avg_pred to avg_predators
                  xerr=df['std_prey'], yerr=df['std_predators'],
                  fmt='o', alpha=0.5)
     ax2.set_xlabel('Average Prey Population')
@@ -71,7 +71,7 @@ def plot_results(df):
 
     # Plot 3: Parameter correlations (heatmap)
     ax3 = plt.subplot(233)
-    sns.heatmap(df[['dr', 'df', 'rf', 'nr', 'avg_prey']].corr(), annot=True, cmap='coolwarm', ax=ax3)
+    sns.heatmap(df[['dr', 'df', 'rf', 'nr', 'normalized_prey']].corr(), annot=True, cmap='coolwarm', ax=ax3)
     ax3.set_title('Parameter Heatmap')
 
     # Plot 4: Population stability (scatter of CVs)
@@ -114,7 +114,7 @@ def main():
     # Run parameter sweep
     print("Running parameter sweep...")
     df = run_parameter_sweep(
-        num_samples=500,    # Number of different parameter combinations
+        num_samples=5,    # Number of different parameter combinations
         num_reruns=2,       # Number of times to rerun each combination
         num_sims=20,         # Number of simulations per rerun
         num_timesteps=500,  # Number of timesteps per simulation
@@ -127,7 +127,7 @@ def main():
     
     # Print summary statistics
     print("\nSummary Statistics:")
-    print(df[['avg_prey', 'avg_predators', 'std_prey', 'std_predators']].describe())
+    print(df[['normalized_prey', 'avg_predators']].describe())
 
 if __name__ == "__main__":
     main() 

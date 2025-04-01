@@ -1,6 +1,8 @@
 #include "simulation_controller.hpp"
 #include "agent.hpp"
 #include "simulation_context.hpp"
+#include "simulation_report.hpp"
+#include "grid.hpp"
 #include <algorithm>
 #include <iostream>
 #include <random>
@@ -9,7 +11,6 @@
 #include <algorithm>
 #include <cmath>
 #include <climits>
-#include <cassert>
 
 std::mt19937 SimulationController::rng(std::random_device{}());
 std::uniform_real_distribution<double> SimulationController::reproDist(0, 1);
@@ -93,121 +94,27 @@ void SimulationController::initialize() {
 void SimulationController::updateSingleTimestep() {
     // Get all agents from grid
     double t = 0;
+
+    // We work with local copies of these two things so we don't get bogged down with race conditions. 
+    // TODO: Is this affecting the sim? 
     auto agents = grid.getAgents();
     int agentCount = agents.size();
-    std::shuffle(std::begin(agents), std::end(agents), SimulationController::rng);
-
-    // Buffer for new agents
-    std::vector<std::shared_ptr<Agent>> newAgents;
-    newAgents.reserve(this->agentCount() / 4); // Reserve some space based on expected growth
-    
-    // Track agents to remove
-    std::vector<std::shared_ptr<Agent>> deadAgents;
-    deadAgents.reserve(this->agentCount() / 4);
 
     // #pragma omp parallel for schedule(dynamic)  
     // Batch update all agent positions first
     for (size_t i = 0; i < agentCount; ++i) {
-        auto agent = agents[i];
-        
-        if (!agent->isAlive()) continue;
-                double m = (agent->getType() == Agent::Type::PREY) ? 
-                   context.getConfig().MR : 
-                   context.getConfig().MF;
+        int randomIndex = randomAgentIndex();
+        auto agent = agents[randomIndex];
 
-        // Clamp the new position to the grid
-        Position oldPosition = agent->getPosition();
-        Position newPosition = agent->getPosition() + randomDirection() * m;
-        newPosition.x = std::clamp(newPosition.x, 0.0, 1.0);
-        newPosition.y = std::clamp(newPosition.y, 0.0, 1.0);
-
-        // Make sure to update the agent's internal position too
-        // This should be the only place where the agent's position is updated
-        agent->setPosition(newPosition);
-        grid.moveAgent(agent, oldPosition, newPosition);
-
-        // Check for interactions
-        bool hasInteraction = grid.hasOppositeTypeNeighbor(agent, context.getConfig().interactionRadius);
-        
-        // Get action based on type and situation
-        AgentAction::Action action = agent->getAction(hasInteraction);
-        
-        // Process the action
-        if (action == AgentAction::DIE) {
-            agent->die();
-            //#pragma omp critical
-            {
-                deadAgents.push_back(agent);
-                if (agent->getType() == Agent::PREDATOR) {
-                    decrementPredatorCount();
-                } else {
-                    decrementPreyCount();
-                }
-            }
-        }
-
-        else if (action == AgentAction::REPRODUCE) {
-            // Create a new agent of the same type
-            Position newPos = agent->getPosition(); // For simplicity, same position
-            
-            // #pragma omp critical
-            {
-                if (agent->getType() == Agent::PREDATOR) {
-                    newAgents.push_back(std::make_shared<Predator>(newPos, context));
-                    incrementPredatorCount();
-                } else {
-                    newAgents.push_back(std::make_shared<Prey>(newPos, context));
-                    incrementPreyCount();
-                }
-            }
-        }
-    }
-
-    // Remove dead agents
-    for (const auto& agent : deadAgents) {
-        grid.removeAgent(agent);
-    }
-
-    // Add new agents
-    for (const auto& agent : newAgents) {
-        grid.addAgent(agent);
+        if(!agent || !agent->isAlive()) {return;}
+        updateSingleAgent(agent);
     }
     
     currentStep++;
-    
     // Update history
     updateHistory();
-
-    // while (t < 1.0 && this->agentCount() > 0) {
-    //     t += 1.0 / this->agentCount();
-    //     size_t randomIndex = randomAgentIndex();
-    //     std::shared_ptr<Agent> agent = grid.getAgents()[randomIndex];
-    //     if (agent) {
-    //         updateSingleAgent(agent);
-    //     }
-    // }
-
-    // currentStep++;
-    // // Update history
-    // updateHistory();
 }
 
-// void SimulationController::updateSingleTimestep() {
-//     // Make a copy of the agents to avoid iterator invalidation during updates
-//     const auto agents = grid.getAgents();
-//     const size_t agentCount = agents.size();
-    
-//     // Pre-calculate simulation parameters for this step
-//     const double interactionRadius = context.getConfig().interactionRadius;
-//     const double NR = context.getConfig().NR;  // Carrying capacity of Prey
-//     const double RR = context.getConfig().RR;  // Reproduction rate of Prey
-//     const double DR = context.getConfig().DR;  // Death rate of prey when encountering predator
-//     const double DF = context.getConfig().DF;  // Death rate of predator when no prey around
-//     const double RF = context.getConfig().RF;  // Reproduction rate of predator
-    
-    
-
-// }
 
 void SimulationController::updateSingleAgent(std::shared_ptr<Agent> agent){
     if (!isRunning && isPaused) { return; }    
@@ -247,6 +154,7 @@ void SimulationController::updateSingleAgent(std::shared_ptr<Agent> agent){
         }
 
         else if (action == AgentAction::Action::DIE) {
+            agent->die();
             grid.removeAgent(agent);
             if (agent->getType() == Agent::Type::PREY) {
                 decrementPreyCount();
@@ -337,11 +245,16 @@ void SimulationController::resetStats() {
 SimulationReport SimulationController::getReport() const {
     auto executionTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
     
-    SimulationReport report(predatorHistory, preyHistory);
-    report.executionTime = executionTime;
-    report.totalSteps = currentStep;
-    report.finalPredatorCount = getCurrentPredatorCount();
-    report.finalPreyCount = getCurrentPreyCount();
+    SimulationReport report(
+        predatorHistory, 
+        preyHistory,                  
+        getCurrentPredatorCount(),
+        getCurrentPreyCount(),                  
+        context.getConfig(),
+        currentStep,
+        executionTime,
+        static_cast<double>(preyCount)/context.getConfig().NR
+    );
     
     return report;
 } 

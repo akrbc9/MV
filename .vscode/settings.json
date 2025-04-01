@@ -74,6 +74,20 @@
         "typeindex": "cpp",
         "__availability": "cpp",
         "*.ipp": "cpp",
-        "chrono": "cpp"
+        "chrono": "cpp",
+        "ranges": "cpp",
+        "text_encoding": "cpp",
+        "climits": "cpp",
+        "atomic": "cpp",
+        "bit": "cpp",
+        "*.tcc": "cpp",
+        "compare": "cpp",
+        "concepts": "cpp",
+        "exception": "cpp",
+        "iterator": "cpp",
+        "memory_resource": "cpp",
+        "random": "cpp",
+        "type_traits": "cpp",
+        "utility": "cpp"
     }
 }
