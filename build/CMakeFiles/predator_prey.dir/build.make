@@ -99,6 +99,7 @@ bin/predator_prey: lib/libpredator_prey_lib.a
 bin/predator_prey: /opt/homebrew/lib/libsfml-graphics.3.0.0.dylib
 bin/predator_prey: /opt/homebrew/lib/libsfml-window.3.0.0.dylib
 bin/predator_prey: /opt/homebrew/lib/libsfml-system.3.0.0.dylib
+bin/predator_prey: /opt/homebrew/Cellar/llvm/19.1.7_1/lib/libomp.dylib
 bin/predator_prey: CMakeFiles/predator_prey.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable bin/predator_prey"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/predator_prey.dir/link.txt --verbose=$(VERBOSE)

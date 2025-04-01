@@ -754,3 +754,83 @@ events:
         
       exitCode: 0
 ...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/Internal/CheckSourceCompiles.cmake:108 (try_compile)"
+      - "/opt/homebrew/share/cmake/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "/opt/homebrew/share/cmake/Modules/CheckCXXCompilerFlag.cmake:55 (cmake_check_compiler_flag)"
+      - "build/_deps/pybind11-src/tools/pybind11Common.cmake:268 (check_cxx_compiler_flag)"
+      - "build/_deps/pybind11-src/tools/pybind11Common.cmake:310 (_pybind11_return_if_cxx_and_linker_flags_work)"
+      - "build/_deps/pybind11-src/tools/pybind11Common.cmake:376 (_pybind11_generate_lto)"
+      - "build/_deps/pybind11-src/CMakeLists.txt:208 (include)"
+    checks:
+      - "Performing Test HAS_FLTO"
+    directories:
+      source: "/Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles/CMakeScratch/TryCompile-VU6C5D"
+      binary: "/Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles/CMakeScratch/TryCompile-VU6C5D"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/Cellar/llvm/19.1.7_1/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: " -std=c++17 -arch arm64 -fopenmp"
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_OSX_ARCHITECTURES: "arm64"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "14.5"
+      CMAKE_OSX_SYSROOT: "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk"
+    buildResult:
+      variable: "HAS_FLTO"
+      cached: true
+      stdout: |
+        Change Dir: '/Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles/CMakeScratch/TryCompile-VU6C5D'
+        
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_0562f/fast
+        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_0562f.dir/build.make CMakeFiles/cmTC_0562f.dir/build
+        Building CXX object CMakeFiles/cmTC_0562f.dir/src.cxx.o
+        /opt/homebrew/opt/llvm/bin/clang++ -DHAS_FLTO  -std=c++17 -arch arm64 -fopenmp  -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk -mmacosx-version-min=14.5   -flto -MD -MT CMakeFiles/cmTC_0562f.dir/src.cxx.o -MF CMakeFiles/cmTC_0562f.dir/src.cxx.o.d -o CMakeFiles/cmTC_0562f.dir/src.cxx.o -c /Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles/CMakeScratch/TryCompile-VU6C5D/src.cxx
+        Linking CXX executable cmTC_0562f
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0562f.dir/link.txt --verbose=1
+        /opt/homebrew/opt/llvm/bin/clang++  -std=c++17 -arch arm64 -fopenmp  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk -mmacosx-version-min=14.5 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_0562f.dir/src.cxx.o -o cmTC_0562f  -flto
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/Internal/CheckSourceCompiles.cmake:108 (try_compile)"
+      - "/opt/homebrew/share/cmake/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "/opt/homebrew/share/cmake/Modules/CheckCXXCompilerFlag.cmake:55 (cmake_check_compiler_flag)"
+      - "build/_deps/pybind11-src/tools/pybind11Common.cmake:268 (check_cxx_compiler_flag)"
+      - "build/_deps/pybind11-src/tools/pybind11Common.cmake:304 (_pybind11_return_if_cxx_and_linker_flags_work)"
+      - "build/_deps/pybind11-src/tools/pybind11Common.cmake:379 (_pybind11_generate_lto)"
+      - "build/_deps/pybind11-src/CMakeLists.txt:208 (include)"
+    checks:
+      - "Performing Test HAS_FLTO_THIN"
+    directories:
+      source: "/Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles/CMakeScratch/TryCompile-Z0D45S"
+      binary: "/Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles/CMakeScratch/TryCompile-Z0D45S"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/Cellar/llvm/19.1.7_1/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: " -std=c++17 -arch arm64 -fopenmp"
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_OSX_ARCHITECTURES: "arm64"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "14.5"
+      CMAKE_OSX_SYSROOT: "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk"
+    buildResult:
+      variable: "HAS_FLTO_THIN"
+      cached: true
+      stdout: |
+        Change Dir: '/Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles/CMakeScratch/TryCompile-Z0D45S'
+        
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_8796e/fast
+        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_8796e.dir/build.make CMakeFiles/cmTC_8796e.dir/build
+        Building CXX object CMakeFiles/cmTC_8796e.dir/src.cxx.o
+        /opt/homebrew/opt/llvm/bin/clang++ -DHAS_FLTO_THIN  -std=c++17 -arch arm64 -fopenmp  -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk -mmacosx-version-min=14.5   -flto=thin -MD -MT CMakeFiles/cmTC_8796e.dir/src.cxx.o -MF CMakeFiles/cmTC_8796e.dir/src.cxx.o.d -o CMakeFiles/cmTC_8796e.dir/src.cxx.o -c /Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles/CMakeScratch/TryCompile-Z0D45S/src.cxx
+        Linking CXX executable cmTC_8796e
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8796e.dir/link.txt --verbose=1
+        /opt/homebrew/opt/llvm/bin/clang++  -std=c++17 -arch arm64 -fopenmp  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk -mmacosx-version-min=14.5 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_8796e.dir/src.cxx.o -o cmTC_8796e  -flto=thin
+        
+      exitCode: 0
+...

@@ -1,0 +1,9 @@
+parameter_sweep/.DS_Store
+parameter_sweep/python/.DS_Store
+.DS_Store
+parameter_sweep/results/.DS_Store
+parameter_sweep/plots/.DS_Store
+parameter_sweep/results/*
+parameter_sweep/plots/*
+parameter_sweep/results/parameter_sweep_results.csv
+parameter_sweep/plots/parameter_sweep_results.png

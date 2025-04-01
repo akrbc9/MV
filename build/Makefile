@@ -155,6 +155,19 @@ parameter_sweep/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/parameter_sweep.dir/build.make CMakeFiles/parameter_sweep.dir/build
 .PHONY : parameter_sweep/fast
 
+#=============================================================================
+# Target rules for targets named predator_prey_python
+
+# Build rule for target.
+predator_prey_python: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 predator_prey_python
+.PHONY : predator_prey_python
+
+# fast build rule for target.
+predator_prey_python/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey_python.dir/build.make CMakeFiles/predator_prey_python.dir/build
+.PHONY : predator_prey_python/fast
+
 parameter_sweep/src/lhs_sampler.o: parameter_sweep/src/lhs_sampler.cpp.o
 .PHONY : parameter_sweep/src/lhs_sampler.o
 
@@ -299,6 +312,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey.dir/build.make CMakeFiles/predator_prey.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/simulation_bindings.o: src/simulation_bindings.cpp.o
+.PHONY : src/simulation_bindings.o
+
+# target to build an object file
+src/simulation_bindings.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey_python.dir/build.make CMakeFiles/predator_prey_python.dir/src/simulation_bindings.cpp.o
+.PHONY : src/simulation_bindings.cpp.o
+
+src/simulation_bindings.i: src/simulation_bindings.cpp.i
+.PHONY : src/simulation_bindings.i
+
+# target to preprocess a source file
+src/simulation_bindings.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey_python.dir/build.make CMakeFiles/predator_prey_python.dir/src/simulation_bindings.cpp.i
+.PHONY : src/simulation_bindings.cpp.i
+
+src/simulation_bindings.s: src/simulation_bindings.cpp.s
+.PHONY : src/simulation_bindings.s
+
+# target to generate assembly for a file
+src/simulation_bindings.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey_python.dir/build.make CMakeFiles/predator_prey_python.dir/src/simulation_bindings.cpp.s
+.PHONY : src/simulation_bindings.cpp.s
+
 src/simulation_controller.o: src/simulation_controller.cpp.o
 .PHONY : src/simulation_controller.o
 
@@ -382,6 +419,7 @@ help:
 	@echo "... parameter_sweep"
 	@echo "... predator_prey"
 	@echo "... predator_prey_lib"
+	@echo "... predator_prey_python"
 	@echo "... parameter_sweep/src/lhs_sampler.o"
 	@echo "... parameter_sweep/src/lhs_sampler.i"
 	@echo "... parameter_sweep/src/lhs_sampler.s"
@@ -400,6 +438,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/simulation_bindings.o"
+	@echo "... src/simulation_bindings.i"
+	@echo "... src/simulation_bindings.s"
 	@echo "... src/simulation_controller.o"
 	@echo "... src/simulation_controller.i"
 	@echo "... src/simulation_controller.s"

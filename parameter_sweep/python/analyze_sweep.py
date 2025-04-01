@@ -44,6 +44,8 @@ def run_parameter_sweep(num_samples=100, num_reruns=5, num_sims=10, num_timestep
 def plot_results(df):
     """Create visualizations of the parameter sweep results"""
     # Set up the plotting style
+    plots_dir = os.path.join(".", "plots")
+    os.makedirs(plots_dir, exist_ok=True)
     plt.style.use('seaborn')
     df['normalized_prey'] = df['avg_prey'] / df['nr']
     print(df.head())
@@ -69,9 +71,8 @@ def plot_results(df):
 
     # Plot 3: Parameter correlations (heatmap)
     ax3 = plt.subplot(233)
-    sns.heatmap(df[['nr', 'dr', 'df', 'rf', 'avg_prey', 'avg_predators']].corr(),
-                annot=True, cmap='coolwarm', ax=ax3)
-    ax3.set_title('Parameter Correlations')
+    sns.heatmap(df[['dr', 'df', 'rf', 'nr', 'avg_prey']].corr(), annot=True, cmap='coolwarm', ax=ax3)
+    ax3.set_title('Parameter Heatmap')
 
     # Plot 4: Population stability (scatter of CVs)
     ax4 = plt.subplot(234)
@@ -104,7 +105,8 @@ def plot_results(df):
     ax6.set_title('Distribution of Predator Population')
 
     plt.tight_layout()
-    plt.show()
+    plt.savefig(os.path.join(plots_dir, 'parameter_sweep_results.png'))
+    plt.close()
 
 
 
@@ -112,9 +114,9 @@ def main():
     # Run parameter sweep
     print("Running parameter sweep...")
     df = run_parameter_sweep(
-        num_samples=200,    # Number of different parameter combinations
+        num_samples=500,    # Number of different parameter combinations
         num_reruns=2,       # Number of times to rerun each combination
-        num_sims=5,         # Number of simulations per rerun
+        num_sims=20,         # Number of simulations per rerun
         num_timesteps=500,  # Number of timesteps per simulation
         output_dir="./results"
     )

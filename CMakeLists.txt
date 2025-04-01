@@ -13,15 +13,18 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
-# Find SFML first so we can use its include paths
+# Find required packages
 find_package(OpenMP REQUIRED)
 find_package(SFML 3.0 COMPONENTS Graphics Window System REQUIRED)
+find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
+find_package(Boost COMPONENTS python3)
 
 # Add include directories
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/include
     ${CMAKE_CURRENT_SOURCE_DIR}/parameter_sweep/include
     ${SFML_INCLUDE_DIR}
+    ${Python3_INCLUDE_DIRS}
 )
 
 # Download and include nlohmann/json
@@ -30,7 +33,14 @@ FetchContent_Declare(
     nlohmann_json
     URL https://github.com/nlohmann/json/releases/download/v3.11.2/json.tar.xz
 )
-FetchContent_MakeAvailable(nlohmann_json)
+
+# Download and include pybind11
+FetchContent_Declare(
+    pybind11
+    GIT_REPOSITORY https://github.com/pybind/pybind11.git
+    GIT_TAG        v2.10.4  # Adjust to a specific version if needed
+)
+FetchContent_MakeAvailable(nlohmann_json pybind11)
 
 # Add source files for main simulation
 set(SIMULATION_SOURCES
@@ -75,22 +85,34 @@ target_link_libraries(predator_prey_lib PUBLIC
     SFML::Graphics
     SFML::Window
     SFML::System
+    OpenMP::OpenMP_CXX
 )
 
 # Create main simulation executable
 add_executable(predator_prey src/main.cpp)
 target_link_libraries(predator_prey PRIVATE predator_prey_lib)
 
+# Create parameter sweep executable
 add_executable(parameter_sweep ${PARAMETER_SWEEP_SOURCES})
 target_link_libraries(parameter_sweep PRIVATE predator_prey_lib)
 
-# Create parameter sweep executable
+# Python module
+pybind11_add_module(predator_prey_python src/simulation_bindings.cpp)
+target_link_libraries(predator_prey_python PRIVATE predator_prey_lib)
+# Rename the output library to match Python's module naming convention
+set_target_properties(predator_prey_python PROPERTIES 
+    OUTPUT_NAME "predator_prey"
+    PREFIX "${PYTHON_MODULE_PREFIX}"
+    SUFFIX "${PYTHON_MODULE_EXTENSION}"
+)
 
 # Add compiler warnings
 if(MSVC)
     target_compile_options(predator_prey PRIVATE /W4)
     target_compile_options(parameter_sweep PRIVATE /W4)
+    target_compile_options(predator_prey_python PRIVATE /W4)
 else()
     target_compile_options(predator_prey PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(parameter_sweep PRIVATE -Wall -Wextra -Wpedantic)
-endif() 
+    target_compile_options(predator_prey_python PRIVATE -Wall -Wextra -Wpedantic)
+endif()
