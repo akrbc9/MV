@@ -861,6 +861,7 @@ CMakeFiles/predator_prey.dir/src/main.cpp.o: \
   /opt/homebrew/include/SFML/System/Angle.inl \
   /opt/homebrew/Cellar/llvm/19.1.7_1/bin/../include/c++/v1/cassert \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/assert.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/_assert.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/_static_assert.h \
   /opt/homebrew/include/SFML/System/Vector2.inl \
   /opt/homebrew/include/SFML/Graphics/Rect.inl \

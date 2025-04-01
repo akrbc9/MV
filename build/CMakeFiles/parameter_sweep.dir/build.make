@@ -44,10 +44,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /opt/homebrew/bin/cmake
+CMAKE_COMMAND = /opt/anaconda3/envs/CMPLX/bin/cmake
 
 # The command to remove a file.
-RM = /opt/homebrew/bin/cmake -E rm -f
+RM = /opt/anaconda3/envs/CMPLX/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -131,7 +131,6 @@ bin/parameter_sweep: lib/libpredator_prey_lib.a
 bin/parameter_sweep: /opt/homebrew/lib/libsfml-graphics.3.0.0.dylib
 bin/parameter_sweep: /opt/homebrew/lib/libsfml-window.3.0.0.dylib
 bin/parameter_sweep: /opt/homebrew/lib/libsfml-system.3.0.0.dylib
-bin/parameter_sweep: /opt/homebrew/Cellar/llvm/19.1.7_1/lib/libomp.dylib
 bin/parameter_sweep: CMakeFiles/parameter_sweep.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable bin/parameter_sweep"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/parameter_sweep.dir/link.txt --verbose=$(VERBOSE)

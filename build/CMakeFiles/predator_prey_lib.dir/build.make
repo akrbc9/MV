@@ -44,10 +44,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /opt/homebrew/bin/cmake
+CMAKE_COMMAND = /opt/anaconda3/envs/CMPLX/bin/cmake
 
 # The command to remove a file.
-RM = /opt/homebrew/bin/cmake -E rm -f
+RM = /opt/anaconda3/envs/CMPLX/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -100,24 +100,10 @@ CMakeFiles/predator_prey_lib.dir/src/grid.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/predator_prey_lib.dir/src/grid.cpp.s"
 	/opt/homebrew/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/UM/Documents/UM25/Learning/MV/src/grid.cpp -o CMakeFiles/predator_prey_lib.dir/src/grid.cpp.s
 
-CMakeFiles/predator_prey_lib.dir/src/spatial_hash.cpp.o: CMakeFiles/predator_prey_lib.dir/flags.make
-CMakeFiles/predator_prey_lib.dir/src/spatial_hash.cpp.o: /Users/UM/Documents/UM25/Learning/MV/src/spatial_hash.cpp
-CMakeFiles/predator_prey_lib.dir/src/spatial_hash.cpp.o: CMakeFiles/predator_prey_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/predator_prey_lib.dir/src/spatial_hash.cpp.o"
-	/opt/homebrew/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/predator_prey_lib.dir/src/spatial_hash.cpp.o -MF CMakeFiles/predator_prey_lib.dir/src/spatial_hash.cpp.o.d -o CMakeFiles/predator_prey_lib.dir/src/spatial_hash.cpp.o -c /Users/UM/Documents/UM25/Learning/MV/src/spatial_hash.cpp
-
-CMakeFiles/predator_prey_lib.dir/src/spatial_hash.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/predator_prey_lib.dir/src/spatial_hash.cpp.i"
-	/opt/homebrew/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/UM/Documents/UM25/Learning/MV/src/spatial_hash.cpp > CMakeFiles/predator_prey_lib.dir/src/spatial_hash.cpp.i
-
-CMakeFiles/predator_prey_lib.dir/src/spatial_hash.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/predator_prey_lib.dir/src/spatial_hash.cpp.s"
-	/opt/homebrew/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/UM/Documents/UM25/Learning/MV/src/spatial_hash.cpp -o CMakeFiles/predator_prey_lib.dir/src/spatial_hash.cpp.s
-
 CMakeFiles/predator_prey_lib.dir/src/simulation_controller.cpp.o: CMakeFiles/predator_prey_lib.dir/flags.make
 CMakeFiles/predator_prey_lib.dir/src/simulation_controller.cpp.o: /Users/UM/Documents/UM25/Learning/MV/src/simulation_controller.cpp
 CMakeFiles/predator_prey_lib.dir/src/simulation_controller.cpp.o: CMakeFiles/predator_prey_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/predator_prey_lib.dir/src/simulation_controller.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/predator_prey_lib.dir/src/simulation_controller.cpp.o"
 	/opt/homebrew/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/predator_prey_lib.dir/src/simulation_controller.cpp.o -MF CMakeFiles/predator_prey_lib.dir/src/simulation_controller.cpp.o.d -o CMakeFiles/predator_prey_lib.dir/src/simulation_controller.cpp.o -c /Users/UM/Documents/UM25/Learning/MV/src/simulation_controller.cpp
 
 CMakeFiles/predator_prey_lib.dir/src/simulation_controller.cpp.i: cmake_force
@@ -131,7 +117,7 @@ CMakeFiles/predator_prey_lib.dir/src/simulation_controller.cpp.s: cmake_force
 CMakeFiles/predator_prey_lib.dir/src/simulation_report.cpp.o: CMakeFiles/predator_prey_lib.dir/flags.make
 CMakeFiles/predator_prey_lib.dir/src/simulation_report.cpp.o: /Users/UM/Documents/UM25/Learning/MV/src/simulation_report.cpp
 CMakeFiles/predator_prey_lib.dir/src/simulation_report.cpp.o: CMakeFiles/predator_prey_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/predator_prey_lib.dir/src/simulation_report.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/predator_prey_lib.dir/src/simulation_report.cpp.o"
 	/opt/homebrew/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/predator_prey_lib.dir/src/simulation_report.cpp.o -MF CMakeFiles/predator_prey_lib.dir/src/simulation_report.cpp.o.d -o CMakeFiles/predator_prey_lib.dir/src/simulation_report.cpp.o -c /Users/UM/Documents/UM25/Learning/MV/src/simulation_report.cpp
 
 CMakeFiles/predator_prey_lib.dir/src/simulation_report.cpp.i: cmake_force
@@ -146,7 +132,6 @@ CMakeFiles/predator_prey_lib.dir/src/simulation_report.cpp.s: cmake_force
 predator_prey_lib_OBJECTS = \
 "CMakeFiles/predator_prey_lib.dir/src/agent.cpp.o" \
 "CMakeFiles/predator_prey_lib.dir/src/grid.cpp.o" \
-"CMakeFiles/predator_prey_lib.dir/src/spatial_hash.cpp.o" \
 "CMakeFiles/predator_prey_lib.dir/src/simulation_controller.cpp.o" \
 "CMakeFiles/predator_prey_lib.dir/src/simulation_report.cpp.o"
 
@@ -155,12 +140,11 @@ predator_prey_lib_EXTERNAL_OBJECTS =
 
 lib/libpredator_prey_lib.a: CMakeFiles/predator_prey_lib.dir/src/agent.cpp.o
 lib/libpredator_prey_lib.a: CMakeFiles/predator_prey_lib.dir/src/grid.cpp.o
-lib/libpredator_prey_lib.a: CMakeFiles/predator_prey_lib.dir/src/spatial_hash.cpp.o
 lib/libpredator_prey_lib.a: CMakeFiles/predator_prey_lib.dir/src/simulation_controller.cpp.o
 lib/libpredator_prey_lib.a: CMakeFiles/predator_prey_lib.dir/src/simulation_report.cpp.o
 lib/libpredator_prey_lib.a: CMakeFiles/predator_prey_lib.dir/build.make
 lib/libpredator_prey_lib.a: CMakeFiles/predator_prey_lib.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX static library lib/libpredator_prey_lib.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX static library lib/libpredator_prey_lib.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/predator_prey_lib.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/predator_prey_lib.dir/link.txt --verbose=$(VERBOSE)
 

@@ -7,8 +7,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/predator_prey_lib.dir/src/simulation_controller.cpp.o.d"
   "CMakeFiles/predator_prey_lib.dir/src/simulation_report.cpp.o"
   "CMakeFiles/predator_prey_lib.dir/src/simulation_report.cpp.o.d"
-  "CMakeFiles/predator_prey_lib.dir/src/spatial_hash.cpp.o"
-  "CMakeFiles/predator_prey_lib.dir/src/spatial_hash.cpp.o.d"
   "lib/libpredator_prey_lib.a"
   "lib/libpredator_prey_lib.pdb"
 )

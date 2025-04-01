@@ -9,7 +9,7 @@
 #include <algorithm>
 #include <cmath>
 #include <climits>
-#include <omp.h>
+#include <cassert>
 
 std::mt19937 SimulationController::rng(std::random_device{}());
 std::uniform_real_distribution<double> SimulationController::reproDist(0, 1);
@@ -174,6 +174,7 @@ void SimulationController::updateSingleTimestep() {
     }
     
     currentStep++;
+    
     // Update history
     updateHistory();
 

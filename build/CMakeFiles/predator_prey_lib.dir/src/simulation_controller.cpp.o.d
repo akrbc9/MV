@@ -861,6 +861,7 @@ CMakeFiles/predator_prey_lib.dir/src/simulation_controller.cpp.o: \
   /opt/homebrew/include/SFML/System/Angle.inl \
   /opt/homebrew/Cellar/llvm/19.1.7_1/bin/../include/c++/v1/cassert \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/assert.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/_assert.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/_static_assert.h \
   /opt/homebrew/include/SFML/System/Vector2.inl \
   /opt/homebrew/include/SFML/Graphics/Rect.inl \
@@ -945,5 +946,4 @@ CMakeFiles/predator_prey_lib.dir/src/simulation_controller.cpp.o: \
   /opt/homebrew/include/SFML/System/FileInputStream.hpp \
   /opt/homebrew/include/SFML/System/InputStream.hpp \
   /opt/homebrew/include/SFML/System/MemoryInputStream.hpp \
-  /opt/homebrew/include/SFML/System/Sleep.hpp \
-  /opt/homebrew/Cellar/llvm/19.1.7_1/lib/clang/19/include/omp.h
+  /opt/homebrew/include/SFML/System/Sleep.hpp

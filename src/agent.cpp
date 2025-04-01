@@ -4,7 +4,7 @@
 #include <random>
 #include <iostream>
 #include <algorithm>
-#include <memory>å
+#include <memory>
 #include <cmath>
 
 // Definition of static members

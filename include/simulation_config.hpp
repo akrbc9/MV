@@ -3,6 +3,7 @@
 #include <string>
 
 struct SimulationConfig {
+    
     // World parameters
     double worldWidth;
     double worldHeight;

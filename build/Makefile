@@ -48,10 +48,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /opt/homebrew/bin/cmake
+CMAKE_COMMAND = /opt/anaconda3/envs/CMPLX/bin/cmake
 
 # The command to remove a file.
-RM = /opt/homebrew/bin/cmake -E rm -f
+RM = /opt/anaconda3/envs/CMPLX/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -68,7 +68,7 @@ CMAKE_BINARY_DIR = /Users/UM/Documents/UM25/Learning/MV/build
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake cache editor..."
-	/opt/homebrew/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/opt/anaconda3/envs/CMPLX/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -78,7 +78,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake to regenerate build system..."
-	/opt/homebrew/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/opt/anaconda3/envs/CMPLX/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -154,19 +154,6 @@ parameter_sweep: cmake_check_build_system
 parameter_sweep/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/parameter_sweep.dir/build.make CMakeFiles/parameter_sweep.dir/build
 .PHONY : parameter_sweep/fast
-
-#=============================================================================
-# Target rules for targets named predator_prey_python
-
-# Build rule for target.
-predator_prey_python: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 predator_prey_python
-.PHONY : predator_prey_python
-
-# fast build rule for target.
-predator_prey_python/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey_python.dir/build.make CMakeFiles/predator_prey_python.dir/build
-.PHONY : predator_prey_python/fast
 
 parameter_sweep/src/lhs_sampler.o: parameter_sweep/src/lhs_sampler.cpp.o
 .PHONY : parameter_sweep/src/lhs_sampler.o
@@ -312,30 +299,6 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey.dir/build.make CMakeFiles/predator_prey.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
-src/simulation_bindings.o: src/simulation_bindings.cpp.o
-.PHONY : src/simulation_bindings.o
-
-# target to build an object file
-src/simulation_bindings.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey_python.dir/build.make CMakeFiles/predator_prey_python.dir/src/simulation_bindings.cpp.o
-.PHONY : src/simulation_bindings.cpp.o
-
-src/simulation_bindings.i: src/simulation_bindings.cpp.i
-.PHONY : src/simulation_bindings.i
-
-# target to preprocess a source file
-src/simulation_bindings.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey_python.dir/build.make CMakeFiles/predator_prey_python.dir/src/simulation_bindings.cpp.i
-.PHONY : src/simulation_bindings.cpp.i
-
-src/simulation_bindings.s: src/simulation_bindings.cpp.s
-.PHONY : src/simulation_bindings.s
-
-# target to generate assembly for a file
-src/simulation_bindings.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey_python.dir/build.make CMakeFiles/predator_prey_python.dir/src/simulation_bindings.cpp.s
-.PHONY : src/simulation_bindings.cpp.s
-
 src/simulation_controller.o: src/simulation_controller.cpp.o
 .PHONY : src/simulation_controller.o
 
@@ -384,30 +347,6 @@ src/simulation_report.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey_lib.dir/build.make CMakeFiles/predator_prey_lib.dir/src/simulation_report.cpp.s
 .PHONY : src/simulation_report.cpp.s
 
-src/spatial_hash.o: src/spatial_hash.cpp.o
-.PHONY : src/spatial_hash.o
-
-# target to build an object file
-src/spatial_hash.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey_lib.dir/build.make CMakeFiles/predator_prey_lib.dir/src/spatial_hash.cpp.o
-.PHONY : src/spatial_hash.cpp.o
-
-src/spatial_hash.i: src/spatial_hash.cpp.i
-.PHONY : src/spatial_hash.i
-
-# target to preprocess a source file
-src/spatial_hash.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey_lib.dir/build.make CMakeFiles/predator_prey_lib.dir/src/spatial_hash.cpp.i
-.PHONY : src/spatial_hash.cpp.i
-
-src/spatial_hash.s: src/spatial_hash.cpp.s
-.PHONY : src/spatial_hash.s
-
-# target to generate assembly for a file
-src/spatial_hash.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey_lib.dir/build.make CMakeFiles/predator_prey_lib.dir/src/spatial_hash.cpp.s
-.PHONY : src/spatial_hash.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -419,7 +358,6 @@ help:
 	@echo "... parameter_sweep"
 	@echo "... predator_prey"
 	@echo "... predator_prey_lib"
-	@echo "... predator_prey_python"
 	@echo "... parameter_sweep/src/lhs_sampler.o"
 	@echo "... parameter_sweep/src/lhs_sampler.i"
 	@echo "... parameter_sweep/src/lhs_sampler.s"
@@ -438,18 +376,12 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
-	@echo "... src/simulation_bindings.o"
-	@echo "... src/simulation_bindings.i"
-	@echo "... src/simulation_bindings.s"
 	@echo "... src/simulation_controller.o"
 	@echo "... src/simulation_controller.i"
 	@echo "... src/simulation_controller.s"
 	@echo "... src/simulation_report.o"
 	@echo "... src/simulation_report.i"
 	@echo "... src/simulation_report.s"
-	@echo "... src/spatial_hash.o"
-	@echo "... src/spatial_hash.i"
-	@echo "... src/spatial_hash.s"
 .PHONY : help
 
 
