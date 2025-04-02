@@ -3,6 +3,8 @@
 #include "simulation_context.hpp"
 #include "grid.hpp"
 #include "simulation_report.hpp"
+#include "simulation_config.hpp"
+#include "agent.hpp"
 #include <vector>
 #include <random>
 #include <chrono>
@@ -10,8 +12,6 @@
 #include <numeric>
 
 // Forward declarations
-struct SimulationConfig;
-class Agent;
 
 struct SimulationStats {
     int predatorCount;

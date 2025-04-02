@@ -1,171 +1,128 @@
 #define SIMULATION_C_API_EXPORTS 1
-
 #include "simulation_c_api.h"
 #include "simulation_controller.hpp"
-#include "simulation_config.hpp"
-#include "simulation_report.hpp"
-#include "agent.hpp"  // Include for Agent::resetIdCounter()
-#include <cstring>
+#include "agent.hpp"
 #include <memory>
+#include <cstring>
 #include <vector>
 
-// Implementation of the simulation handle
-struct Simulation_t {
+// Structure to hold simulation data
+struct SimulationData {
     std::unique_ptr<SimulationController> controller;
-    SimulationConfig config;
+    CSimulationConfig config;
+    std::vector<int> predatorHistory;
+    std::vector<int> preyHistory;
 };
 
 SimulationHandle simulation_create(CSimulationConfig cConfig) {
-    // Reset static ID counter before creating a new simulation
-    Agent::resetIdCounter();
+    // Create C++ SimulationConfig from C-compatible struct
+    SimulationConfig config;
     
-    SimulationHandle handle = new Simulation_t();
+    // Copy all fields from C struct to C++ struct
+    config.worldWidth = cConfig.worldWidth;
+    config.worldHeight = cConfig.worldHeight;
+    config.initialPredators = cConfig.initialPredators;
+    config.initialPrey = cConfig.initialPrey;
+    config.MF = cConfig.MF;
+    config.MR = cConfig.MR;
+    config.interactionRadius = cConfig.interactionRadius;
+    config.cellSize = cConfig.cellSize;
+    config.simulationSteps = cConfig.simulationSteps;
+    config.NR = cConfig.NR;
+    config.RR = cConfig.RR;
+    config.DR = cConfig.DR;
+    config.DF = cConfig.DF;
+    config.RF = cConfig.RF;
     
-    // Copy configuration values from C struct to C++ class
-    SimulationConfig cppConfig;
-    cppConfig.worldWidth = cConfig.worldWidth;
-    cppConfig.worldHeight = cConfig.worldHeight;
-    cppConfig.initialPredators = cConfig.initialPredators;
-    cppConfig.initialPrey = cConfig.initialPrey;
-    cppConfig.MF = cConfig.MF;
-    cppConfig.MR = cConfig.MR;
-    cppConfig.interactionRadius = cConfig.interactionRadius;
-    cppConfig.cellSize = cConfig.cellSize;
-    cppConfig.simulationSteps = cConfig.simulationSteps;
-    cppConfig.NR = cConfig.NR;
-    cppConfig.RR = cConfig.RR;
-    cppConfig.DR = cConfig.DR;
-    cppConfig.DF = cConfig.DF;
-    cppConfig.RF = cConfig.RF;
+    // Now create the SimulationData with the proper C++ config
+    auto data = new SimulationData();
+    data->config = cConfig;
+    data->controller = std::make_unique<SimulationController>(config);
     
-    // Store config for later use
-    handle->config = cppConfig;
-    
-    // Create controller
-    handle->controller = std::make_unique<SimulationController>(cppConfig);
-    
-    return handle;
+    return data;
 }
 
-void simulation_initialize(SimulationHandle handle) {
-    if (handle && handle->controller) {
-        // First, ensure we have a clean grid
-        handle->controller->getGrid().clearAll();
-        handle->controller->initialize();
-    }
+void simulation_initialize(SimulationHandle simulation) {
+    auto data = static_cast<SimulationData*>(simulation);
+    data->controller->initialize();
 }
 
-void simulation_step(SimulationHandle handle) {
-    if (handle && handle->controller) {
-        handle->controller->run();
-    }
+void simulation_step(SimulationHandle simulation) {
+    auto data = static_cast<SimulationData*>(simulation);
+    data->controller->run();
 }
 
-void simulation_run(SimulationHandle handle, int steps) {
-    if (handle && handle->controller) {
-        handle->controller->runForTimesteps(steps);
-    }
+void simulation_run(SimulationHandle simulation, int steps) {
+    auto data = static_cast<SimulationData*>(simulation);
+    data->controller->runForTimesteps(steps);
 }
 
-void simulation_pause(SimulationHandle handle) {
-    if (handle && handle->controller) {
-        handle->controller->pause();
-    }
+void simulation_pause(SimulationHandle simulation) {
+    auto data = static_cast<SimulationData*>(simulation);
+    data->controller->pause();
 }
 
-void simulation_resume(SimulationHandle handle) {
-    if (handle && handle->controller) {
-        // There's no explicit resume, but we can toggle pause state
-        if (handle->controller->isSimulationPaused()) {
-            handle->controller->pause(); // This will toggle the pause state
-        }
-    }
+void simulation_resume(SimulationHandle simulation) {
+    // This would need implementation in the controller
 }
 
-void simulation_end(SimulationHandle handle) {
-    if (handle && handle->controller) {
-        handle->controller->end();
-    }
+void simulation_end(SimulationHandle simulation) {
+    auto data = static_cast<SimulationData*>(simulation);
+    data->controller->end();
 }
 
-void simulation_get_status(SimulationHandle handle, SimulationStatus* status) {
-    if (!handle || !handle->controller || !status) return;
+void simulation_get_status(SimulationHandle simulation, SimulationStatus* status) {
+    auto data = static_cast<SimulationData*>(simulation);
     
-    status->predatorCount = handle->controller->getCurrentPredatorCount();
-    status->preyCount = handle->controller->getCurrentPreyCount();
-    status->currentStep = handle->controller->getCurrentStep();
-    status->isRunning = handle->controller->isSimulationRunning() ? 1 : 0;
-    status->isPaused = handle->controller->isSimulationPaused() ? 1 : 0;
+    // Fill status structure
+    status->predatorCount = data->controller->getCurrentPredatorCount();
+    status->preyCount = data->controller->getCurrentPreyCount();
+    status->currentStep = data->controller->getCurrentStep();
+    status->isRunning = data->controller->isSimulationRunning() ? 1 : 0;
+    status->isPaused = data->controller->isSimulationPaused() ? 1 : 0;
 }
 
-SimulationResult simulation_get_results(SimulationHandle handle) {
-    SimulationResult result = {0};
+SimulationResult simulation_get_results(SimulationHandle simulation) {
+    auto data = static_cast<SimulationData*>(simulation);
+    SimulationReport report = data->controller->getReport();
     
-    if (!handle || !handle->controller) return result;
+    // Copy history data
+    data->predatorHistory = report.getPredatorHistory();
+    data->preyHistory = report.getPreyHistory();
     
-    SimulationReport report = handle->controller->getReport();
-    
-    // Copy basic statistics
+    // Fill result structure
+    SimulationResult result;
     result.finalPredatorCount = report.getPredatorCount();
     result.finalPreyCount = report.getPreyCount();
     result.normalizedPreyCount = report.getNormalizedPreyCount();
     result.executionTimeMs = report.executionTime.count();
     result.timeSteps = report.getTimeSteps();
     
-    // Copy history arrays
-    auto predatorHistory = report.getPredatorHistory();
-    auto preyHistory = report.getPreyHistory();
-    
-    result.historySize = predatorHistory.size();
-    
-    // Use std::vector to manage memory automatically
-    if (result.historySize > 0) {
-        // Allocate memory on the heap with vector
-        int* predHistPtr = new int[result.historySize];
-        int* preyHistPtr = new int[result.historySize];
-        
-        // Copy data
-        std::copy(predatorHistory.begin(), predatorHistory.end(), predHistPtr);
-        std::copy(preyHistory.begin(), preyHistory.end(), preyHistPtr);
-        
-        result.predatorHistory = predHistPtr;
-        result.preyHistory = preyHistPtr;
-    }
+    // Set history pointers
+    result.historySize = static_cast<int>(data->predatorHistory.size());
+    result.predatorHistory = data->predatorHistory.data();
+    result.preyHistory = data->preyHistory.data();
     
     return result;
 }
 
-void simulation_free_results(SimulationResult* result) {
-    if (!result) return;
-    
-    // Ensure safe deletion
-    if (result->predatorHistory) {
-        delete[] result->predatorHistory;
-        result->predatorHistory = nullptr;
-    }
-    
-    if (result->preyHistory) {
-        delete[] result->preyHistory;
-        result->preyHistory = nullptr;
-    }
-    
-    // Reset other fields
-    result->historySize = 0;
+void simulation_free_results(SimulationResult* results) {
+    // No need to free anything here since we're using vectors in SimulationData
+    // that stay alive until the simulation is destroyed
 }
 
+void simulation_destroy(SimulationHandle simulation) {
+    auto data = static_cast<SimulationData*>(simulation);
+    delete data;
+}
+
+// New function to reset global state
 void simulation_reset_global_state() {
-    // Reset any global or static state
-    Agent::resetIdCounter();  // Assuming this method exists
-}
-
-void simulation_destroy(SimulationHandle handle) {
-    if (handle) {
-        if (handle->controller) {
-            // Ensure grid is cleared to release all agent references
-            handle->controller->getGrid().clearAll();
-        }
-        
-        // Delete the handle (controller will be cleaned up by unique_ptr)
-        delete handle;
-    }
+    // Reset agent ID counter
+    Agent::resetIdCounter();
+    
+    // Reset the static RNG in SimulationController
+    SimulationController::rng = std::mt19937(std::random_device{}());
+    
+    // Reset any other global state as needed
 }

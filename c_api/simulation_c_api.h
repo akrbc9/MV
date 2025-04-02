@@ -1,52 +1,33 @@
-#ifndef SIMULATION_C_API_H
-#define SIMULATION_C_API_H
+#pragma once
 
-// Define export macro for proper symbol visibility
-#if defined(_MSC_VER)
-    // Windows/MSVC
+#ifdef _WIN32
     #ifdef SIMULATION_C_API_EXPORTS
-        #define API_EXPORT __declspec(dllexport)
+        #define SIMULATION_API __declspec(dllexport)
     #else
-        #define API_EXPORT __declspec(dllimport)
+        #define SIMULATION_API __declspec(dllimport)
     #endif
 #else
-    // GCC/Clang
-    #define API_EXPORT __attribute__((visibility("default")))
+    #define SIMULATION_API
 #endif
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-#include<stdio.h>
-/**
- * Simulation handle - an opaque pointer to the internal simulation object
- */
-typedef struct Simulation_t* SimulationHandle;
 
-/**
- * Simulation configuration parameters - C API version
- */
+// Opaque handle to the simulation
+typedef void* SimulationHandle;
+
+// Simulation configuration
 typedef struct {
-    // World parameters
     double worldWidth;
     double worldHeight;
-    
-    // Agent parameters
     int initialPredators;
     int initialPrey;
-    
-    // Movement parameters
     double MF;  // Movement magnitude for predators
     double MR;  // Movement magnitude for prey
-    
-    // Spatial parameters
     double interactionRadius;
     double cellSize;
-    
-    // Simulation parameters
     int simulationSteps;
-    
-    // Population dynamics parameters
     double NR;    // Carrying capacity of Prey
     double RR;    // Reproduction rate of Prey
     double DR;    // Death rate of prey when encountering predator
@@ -54,25 +35,7 @@ typedef struct {
     double RF;    // Reproduction rate of predator
 } CSimulationConfig;
 
-/**
- * Result data structure for final simulation state
- */
-typedef struct {
-    int finalPredatorCount;
-    int finalPreyCount;
-    double normalizedPreyCount;
-    int64_t executionTimeMs;
-    int timeSteps;
-    
-    // Pointers to history arrays (caller must free these)
-    int* predatorHistory;
-    int* preyHistory;
-    int historySize;
-} SimulationResult;
-
-/**
- * Status structure for checking simulation state
- */
+// Simulation status
 typedef struct {
     int predatorCount;
     int preyCount;
@@ -81,69 +44,56 @@ typedef struct {
     int isPaused;
 } SimulationStatus;
 
-/**
- * Reset all global/static state in the simulation.
- * Call this before creating a new simulation to ensure clean state.
- */
-API_EXPORT void simulation_reset_global_state();
+// Simulation results
+typedef struct {
+    int finalPredatorCount;
+    int finalPreyCount;
+    double normalizedPreyCount;   // Final prey count normalized by carrying capacity
+    long long executionTimeMs;    // Execution time in milliseconds
+    int timeSteps;                // Number of timesteps executed
+    int* predatorHistory;         // Array of predator counts for each timestep
+    int* preyHistory;             // Array of prey counts for each timestep
+    int historySize;              // Size of the history arrays
+} SimulationResult;
 
-/**
- * Create a new simulation with the given configuration
- */
-API_EXPORT SimulationHandle simulation_create(CSimulationConfig config);
+// API Functions
 
-/**
- * Initialize the simulation, creating the initial population
- */
-API_EXPORT void simulation_initialize(SimulationHandle handle);
+// Create a new simulation with the given configuration
+SIMULATION_API SimulationHandle simulation_create(CSimulationConfig config);
 
-/**
- * Run the simulation for a single timestep
- */
-API_EXPORT void simulation_step(SimulationHandle handle);
+// Initialize the simulation
+SIMULATION_API void simulation_initialize(SimulationHandle simulation);
 
-/**
- * Run the simulation for the specified number of timesteps
- */
-API_EXPORT void simulation_run(SimulationHandle handle, int steps);
+// Run a single step of the simulation
+SIMULATION_API void simulation_step(SimulationHandle simulation);
 
-/**
- * Pause the simulation
- */
-API_EXPORT void simulation_pause(SimulationHandle handle);
+// Run the simulation for a specified number of steps
+SIMULATION_API void simulation_run(SimulationHandle simulation, int steps);
 
-/**
- * Resume the simulation from a paused state
- */
-API_EXPORT void simulation_resume(SimulationHandle handle);
+// Pause the simulation
+SIMULATION_API void simulation_pause(SimulationHandle simulation);
 
-/**
- * End the simulation
- */
-API_EXPORT void simulation_end(SimulationHandle handle);
+// Resume a paused simulation
+SIMULATION_API void simulation_resume(SimulationHandle simulation);
 
-/**
- * Get the current simulation status
- */
-API_EXPORT void simulation_get_status(SimulationHandle handle, SimulationStatus* status);
+// End the simulation
+SIMULATION_API void simulation_end(SimulationHandle simulation);
 
-/**
- * Get the simulation results
- */
-API_EXPORT SimulationResult simulation_get_results(SimulationHandle handle);
+// Get the current simulation status
+SIMULATION_API void simulation_get_status(SimulationHandle simulation, SimulationStatus* status);
 
-/**
- * Free a simulation result's dynamically allocated memory
- */
-API_EXPORT void simulation_free_results(SimulationResult* result);
+// Get the simulation results (memory is owned by the C API and must be freed with simulation_free_results)
+SIMULATION_API SimulationResult simulation_get_results(SimulationHandle simulation);
 
-/**
- * Destroy a simulation and free all associated resources
- */
-API_EXPORT void simulation_destroy(SimulationHandle handle);
+// Free the memory used by simulation results
+SIMULATION_API void simulation_free_results(SimulationResult* results);
+
+// Destroy the simulation and free all resources
+SIMULATION_API void simulation_destroy(SimulationHandle simulation);
+
+// Reset global state (agent IDs, RNGs, etc.) to prepare for a fresh simulation
+SIMULATION_API void simulation_reset_global_state();
 
 #ifdef __cplusplus
 }
 #endif
-
-#endif // SIMULATION_C_API_H

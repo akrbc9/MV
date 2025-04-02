@@ -86,6 +86,9 @@ class SimulationResult(ctypes.Structure):
 SimulationHandle = ctypes.c_void_p
 
 # Function prototypes
+sim_lib.simulation_reset_global_state.argtypes = []
+sim_lib.simulation_reset_global_state.restype = None
+
 sim_lib.simulation_create.argtypes = [CSimulationConfig]
 sim_lib.simulation_create.restype = SimulationHandle
 
@@ -290,37 +293,74 @@ class PredatorPreySimulation:
             
             # Destroy simulation
             sim_lib.simulation_destroy(self.handle)
+            
+            # Reset global state
+            sim_lib.simulation_reset_global_state()
 
+def reset_global_state():
+    """Reset global state for fresh simulations"""
+    sim_lib.simulation_reset_global_state()
 
-# Example usage
+# Example for main function in predator_prey_sim.py
 if __name__ == "__main__":
+    print("\n--- First Simulation ---")
     # Create a simulation with default parameters
     sim = PredatorPreySimulation()
+    print("Simulation object created")
     
     # Initialize and run
+    print("Initializing simulation...")
     sim.initialize()
+    print("Running simulation...")
     sim.run()
+    print("Ending simulation...")
     sim.end()
+    
     # Get and print results
     results = sim.get_results()
     print(f"Final Predator Count: {results['finalPredatorCount']}")
     print(f"Final Prey Count: {results['finalPreyCount']}")
     print(f"Execution Time: {results['executionTimeMs']}ms")
 
-
-    # sim_lib.simulation_reset_global_state()
-    del sim 
+    # Explicitly clean up the first simulation
+    print("Cleaning up first simulation...")
+    if hasattr(sim, '_result') and sim._result:
+        print("Freeing simulation results...")
+        sim_lib.simulation_free_results(ctypes.byref(sim._result))
+        sim._result = None
+    
+    if hasattr(sim, 'handle') and sim.handle:
+        print("Destroying simulation...")
+        sim_lib.simulation_destroy(sim.handle)
+        sim.handle = None
+    
+    # Try to reset global state
+    print("Attempting to reset global state...")
+    try:
+        reset_global_state()
+    except Exception as e:
+        print(f"Error resetting global state: {e}")
+    
+    # Force garbage collection
+    print("Forcing garbage collection...")
+    del sim
     gc.collect()
-    sim = None 
-    print("#1")
+    sim = None
+    print("First simulation cleanup complete")
+    
+    print("\n--- Second Simulation ---")
+    # Create a new simulation
+    print("Creating new simulation object...")
     sim = PredatorPreySimulation()
+    
     # Initialize and run
-    print("#2")
+    print("Initializing simulation...")
     sim.initialize()
-    print("#3")
+    print("Running simulation...")
     sim.run()
-    print("#4")
+    print("Ending simulation...")
     sim.end()
+    
     # Get and print results
     results = sim.get_results()
     print(f"Final Predator Count: {results['finalPredatorCount']}")
@@ -328,4 +368,5 @@ if __name__ == "__main__":
     print(f"Execution Time: {results['executionTimeMs']}ms")
     
     # Plot results
+    # print("Plotting results (comment out if not needed)...")
     # sim.plot_results()

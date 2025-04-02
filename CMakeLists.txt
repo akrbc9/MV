@@ -158,8 +158,8 @@ if(APPLE)
     
     # Generate a list of exported symbols
     file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/exports.list
-        "_simulation_create\n_simulation_initialize\n_simulation_step\n_simulation_run\n_simulation_pause\n_simulation_resume\n_simulation_end\n_simulation_get_status\n_simulation_get_results\n_simulation_free_results\n_simulation_destroy\n"
-    )
+    "_simulation_create\n_simulation_initialize\n_simulation_step\n_simulation_run\n_simulation_pause\n_simulation_resume\n_simulation_end\n_simulation_get_status\n_simulation_get_results\n_simulation_free_results\n_simulation_destroy\n_simulation_reset_global_state\n"
+)
 endif()
 
 # Disable LTO for the C API to avoid symbol visibility issues

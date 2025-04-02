@@ -9,3 +9,4 @@ _simulation_get_status
 _simulation_get_results
 _simulation_free_results
 _simulation_destroy
+_simulation_reset_global_state
