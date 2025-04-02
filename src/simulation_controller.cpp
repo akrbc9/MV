@@ -90,7 +90,7 @@ void SimulationController::initialize() {
     initializePopulation();
     updateHistory();
 
-    Agent::resetIdCounter();
+    // Agent::resetIdCounter();
 }
 
 void SimulationController::updateSingleTimestep() {

@@ -3,7 +3,6 @@
 #include <string>
 #include <vector>
 #include <tuple>
-#include <nlohmann/json.hpp>
 #include "simulation_config.hpp"
 #include "simulation_controller.hpp"
 #include "simulation_report.hpp"

@@ -67,7 +67,6 @@ all: CMakeFiles/predator_prey_lib.dir/all
 all: CMakeFiles/predator_prey.dir/all
 all: CMakeFiles/parameter_sweep.dir/all
 all: CMakeFiles/simulation_c_api.dir/all
-all: _deps/nlohmann_json-build/all
 .PHONY : all
 
 # The main recursive "codegen" target.
@@ -75,11 +74,10 @@ codegen: CMakeFiles/predator_prey_lib.dir/codegen
 codegen: CMakeFiles/predator_prey.dir/codegen
 codegen: CMakeFiles/parameter_sweep.dir/codegen
 codegen: CMakeFiles/simulation_c_api.dir/codegen
-codegen: _deps/nlohmann_json-build/codegen
 .PHONY : codegen
 
 # The main recursive "preinstall" target.
-preinstall: _deps/nlohmann_json-build/preinstall
+preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
@@ -88,27 +86,7 @@ clean: CMakeFiles/predator_prey.dir/clean
 clean: CMakeFiles/parameter_sweep.dir/clean
 clean: CMakeFiles/simulation_c_api.dir/clean
 clean: CMakeFiles/setup_python_api.dir/clean
-clean: _deps/nlohmann_json-build/clean
 .PHONY : clean
-
-#=============================================================================
-# Directory level rules for directory _deps/nlohmann_json-build
-
-# Recursive "all" directory target.
-_deps/nlohmann_json-build/all:
-.PHONY : _deps/nlohmann_json-build/all
-
-# Recursive "codegen" directory target.
-_deps/nlohmann_json-build/codegen:
-.PHONY : _deps/nlohmann_json-build/codegen
-
-# Recursive "preinstall" directory target.
-_deps/nlohmann_json-build/preinstall:
-.PHONY : _deps/nlohmann_json-build/preinstall
-
-# Recursive "clean" directory target.
-_deps/nlohmann_json-build/clean:
-.PHONY : _deps/nlohmann_json-build/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/predator_prey_lib.dir

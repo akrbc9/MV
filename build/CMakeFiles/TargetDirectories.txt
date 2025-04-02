@@ -9,9 +9,3 @@
 /Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles/install.dir
 /Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles/install/local.dir
 /Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles/install/strip.dir
-/Users/UM/Documents/UM25/Learning/MV/build/_deps/nlohmann_json-build/CMakeFiles/edit_cache.dir
-/Users/UM/Documents/UM25/Learning/MV/build/_deps/nlohmann_json-build/CMakeFiles/rebuild_cache.dir
-/Users/UM/Documents/UM25/Learning/MV/build/_deps/nlohmann_json-build/CMakeFiles/list_install_components.dir
-/Users/UM/Documents/UM25/Learning/MV/build/_deps/nlohmann_json-build/CMakeFiles/install.dir
-/Users/UM/Documents/UM25/Learning/MV/build/_deps/nlohmann_json-build/CMakeFiles/install/local.dir
-/Users/UM/Documents/UM25/Learning/MV/build/_deps/nlohmann_json-build/CMakeFiles/install/strip.dir

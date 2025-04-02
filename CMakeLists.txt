@@ -61,13 +61,13 @@ include_directories(
 )
 
 # Download and include nlohmann/json
-include(FetchContent)
-FetchContent_Declare(
-    nlohmann_json
-    URL https://github.com/nlohmann/json/releases/download/v3.11.2/json.tar.xz
-)
+# include(FetchContent)
+# FetchContent_Declare(
+#     nlohmann_json
+#     URL https://github.com/nlohmann/json/releases/download/v3.11.2/json.tar.xz
+# )
 
-FetchContent_MakeAvailable(nlohmann_json)
+# FetchContent_MakeAvailable(nlohmann_json)
 
 # Add source files for main simulation
 set(SIMULATION_SOURCES
@@ -113,7 +113,7 @@ target_include_directories(predator_prey_lib PUBLIC
     ${SFML_INCLUDE_DIR}
 )
 target_link_libraries(predator_prey_lib PUBLIC 
-    nlohmann_json::nlohmann_json
+    # nlohmann_json::nlohmann_json
     SFML::Graphics
     SFML::Window
     SFML::System
