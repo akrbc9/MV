@@ -24,7 +24,7 @@ struct SimulationConfig {
     bool randomizeInitialPositions;
     
     // Population dynamics parameters
-    double NR;    // Carrying capacity of Prey
+    int NR;    // Carrying capacity of Prey
     double RR;    // Reproduction rate of Prey
     double DR;    // Death rate of prey when encountering predator
     double DF;    // Death rate of predator when no prey around (formerly PDR)

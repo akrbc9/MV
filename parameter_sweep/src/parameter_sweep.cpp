@@ -25,10 +25,10 @@ void ParameterSweep::run(int num_samples, int num_reruns, int num_sims, int num_
 
     // Define parameter ranges for LHS
     std::vector<LHSSampler::ParameterRange> ranges = {
-        {100.0, 1000.0},  // NR (carrying capacity)
-        {0.5, 2.0},       // DR (death rate)
-        {0.05, 0.2},      // DF (predator death rate)
-        {0.3, 0.7}        // RF (predator reproduction rate)
+        {200, 800},  // NR (carrying capacity)
+        {0, 1.0},       // DR (death rate)
+        {0, 1.0},      // DF (predator death rate)
+        {0, 1.0}        // RF (predator reproduction rate)
     };
 
     // Create LHS sampler
@@ -47,7 +47,7 @@ void ParameterSweep::run(int num_samples, int num_reruns, int num_sims, int num_
 
             // Generate sample configuration
             SimulationConfig config;
-            config.NR = samples[i][0];  // Carrying capacity
+            config.NR = static_cast<int>(samples[i][0]);  // Carrying capacity + FOUND THE BUG
             config.DR = samples[i][1];  // Death rate
             config.DF = samples[i][2];  // Predator death rate
             config.RF = samples[i][3];  // Predator reproduction rate
@@ -56,7 +56,7 @@ void ParameterSweep::run(int num_samples, int num_reruns, int num_sims, int num_
             config.worldWidth = 1.0;
             config.worldHeight = 1.0;
             config.initialPredators = 30;
-            config.initialPrey = 500;
+            config.initialPrey = std::min(500,static_cast<int>(config.NR));
             config.MF = 0.05;
             config.MR = 0.03;
             config.interactionRadius = 0.02;
