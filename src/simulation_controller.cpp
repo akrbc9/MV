@@ -17,6 +17,7 @@ std::uniform_real_distribution<double> SimulationController::reproDist(0, 1);
 std::uniform_real_distribution<double> SimulationController::deathDist(0, 1);
 
 
+
 // Helper function to generate random positionå
 Position SimulationController::randomPosition() {
     std::mt19937& rng = SimulationController::rng;
@@ -29,6 +30,14 @@ Position SimulationController::randomDirection() {
     double y = 2*SimulationController::reproDist(rng)-1;
     return Position{x, y};
 }
+
+
+SimulationController::SimulationController(const SimulationConfig& config)
+    : context(config),
+      grid(config.cellSize),
+      predatorHistory(config.simulationSteps, 0),
+      preyHistory(config.simulationSteps, 0){}
+
 
 int SimulationController::agentCount() const{
     return predatorCount + preyCount;
@@ -62,18 +71,9 @@ void SimulationController::initializePopulation() {
     }
 }
 
-
-SimulationController::SimulationController(const SimulationConfig& config)
-    : context(config),
-      grid(config.cellSize),
-      predatorHistory(config.simulationSteps, 0),
-      preyHistory(config.simulationSteps, 0){}
-
 void SimulationController::updateHistory() {
-    if (currentStep < predatorHistory.size()) {
-        predatorHistory[currentStep] = getCurrentPredatorCount();
-        preyHistory[currentStep] = getCurrentPreyCount();
-    }
+    predatorHistory.push_back(getCurrentPredatorCount());
+    preyHistory.push_back(getCurrentPreyCount());
 }
 
 void SimulationController::initialize() {
@@ -92,7 +92,7 @@ void SimulationController::initialize() {
     initializePopulation();
     updateHistory();
 
-    Agent::resetIdCounter();
+    // Agent::resetIdCounter();
 }
 
 void SimulationController::updateSingleTimestep() {
@@ -190,33 +190,34 @@ void SimulationController::run() {
 
 void SimulationController::runForTimesteps(int numSteps) {
     for (int i = 0; i < numSteps; ++i) {
-        if (getCurrentPredatorCount() == 0) {
-            // Instead of just updating counts, properly reset the simulation state
-            std::cout << "Predator extinction detected, resetting simulation state" << std::endl;
+        //TODO: Implement this properly
+        // if (getCurrentPredatorCount() == 0) {
+        //     // Instead of just updating counts, properly reset the simulation state
+        //     std::cout << "Predator extinction detected, resetting simulation state" << std::endl;
             
-            // Clear the grid completely
-            grid.clearAll();
+        //     // Clear the grid completely
+        //     grid.clearAll();
             
-            // Set counts to match the empty grid
-            setPredatorCount(0);
-            setPreyCount(0);
+        //     // Set counts to match the empty grid
+        //     setPredatorCount(0);
+        //     setPreyCount(0);
             
-            // If you really want to set prey to carrying capacity,
-            // you need to actually create those agents:
-            SimulationConfig config = context.getConfig();
-            int carryingCapacity = static_cast<int>(config.NR);
-            std::cout << "Adding " << carryingCapacity << " prey to match carrying capacity" << std::endl;
+        //     // If you really want to set prey to carrying capacity,
+        //     // you need to actually create those agents:
+        //     SimulationConfig config = context.getConfig();
+        //     int carryingCapacity = static_cast<int>(config.NR);
+        //     std::cout << "Adding " << carryingCapacity << " prey to match carrying capacity" << std::endl;
             
-            for (int j = 0; j < carryingCapacity; ++j) {
-                Position pos = randomPosition();
-                auto prey = std::make_shared<Prey>(pos, context);
-                grid.addAgent(prey);
-                incrementPreyCount();
-            }
+        //     for (int j = 0; j < carryingCapacity; ++j) {
+        //         Position pos = randomPosition();
+        //         auto prey = std::make_shared<Prey>(pos, context);
+        //         grid.addAgent(prey);
+        //         incrementPreyCount();
+        //     }
             
-            std::cout << "Simulation state reset completed" << std::endl;
-            break;
-        }
+        //     std::cout << "Simulation state reset completed" << std::endl;
+        //     break;
+        // }
         run();
     }
 }

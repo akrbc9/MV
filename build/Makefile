@@ -375,7 +375,6 @@ src/main.o: src/main.cpp.o
 
 # target to build an object file
 src/main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey_lib.dir/build.make CMakeFiles/predator_prey_lib.dir/src/main.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey.dir/build.make CMakeFiles/predator_prey.dir/src/main.cpp.o
 .PHONY : src/main.cpp.o
 
@@ -384,7 +383,6 @@ src/main.i: src/main.cpp.i
 
 # target to preprocess a source file
 src/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey_lib.dir/build.make CMakeFiles/predator_prey_lib.dir/src/main.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey.dir/build.make CMakeFiles/predator_prey.dir/src/main.cpp.i
 .PHONY : src/main.cpp.i
 
@@ -393,7 +391,6 @@ src/main.s: src/main.cpp.s
 
 # target to generate assembly for a file
 src/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey_lib.dir/build.make CMakeFiles/predator_prey_lib.dir/src/main.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey.dir/build.make CMakeFiles/predator_prey.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 

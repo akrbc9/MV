@@ -24,8 +24,8 @@ public:
         int timeSteps,
         std::chrono::milliseconds executionTime,
         int normalizedPreyCount)
-        :   prey_history_(prey_history),
-            predator_history_(predator_history),
+        :   prey_history(prey_history),
+            predator_history(predator_history),
             finalPredatorCount(finalPredatorCount),
             finalPreyCount(finalPreyCount),
             simulationConfig(config),
@@ -39,15 +39,15 @@ public:
     int getNormalizedPreyCount() const {return normalizedPreyCount;}
     
     // Getters for history
-    std::vector<int> getPreyHistory() const { return prey_history_; }
-    std::vector<int> getPredatorHistory() const { return predator_history_; }
+    std::vector<int> getPreyHistory() const { return prey_history; }
+    std::vector<int> getPredatorHistory() const { return predator_history; }
 
     SimulationConfig getSimulationConfig() const { return simulationConfig; }
     int getTimeSteps() const { return timeSteps; }
 
     // Simulation data
-    std::vector<int> prey_history_;
-    std::vector<int> predator_history_;
+    std::vector<int> prey_history;
+    std::vector<int> predator_history;
     int finalPredatorCount;
     int finalPreyCount;
     SimulationConfig simulationConfig; 

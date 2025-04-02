@@ -44,25 +44,24 @@ void SimulationReport::drawAxes(sf::RenderWindow& window) const {
 }
 
 void SimulationReport::drawGraph(sf::RenderWindow& window) const {
-    if (prey_history_.empty() || predator_history_.empty()) return;
+    if (prey_history.empty() || predator_history.empty()) return;
 
     // Find max values for scaling
-    int maxPrey = *std::max_element(prey_history_.begin(), prey_history_.end());
-    int maxPred = *std::max_element(predator_history_.begin(), predator_history_.end());
+    int maxPrey = *std::max_element(prey_history.begin(), prey_history.end());
+    int maxPred = *std::max_element(predator_history.begin(), predator_history.end());
     int maxVal = std::max(maxPrey, maxPred);
-
     // Create vertex arrays for predator and prey lines
-    sf::VertexArray predatorLine(sf::PrimitiveType::LineStrip, predator_history_.size());
-    sf::VertexArray preyLine(sf::PrimitiveType::LineStrip, prey_history_.size());
+    sf::VertexArray predatorLine(sf::PrimitiveType::LineStrip, predator_history.size());
+    sf::VertexArray preyLine(sf::PrimitiveType::LineStrip, prey_history.size());
 
-    for (size_t i = 0; i < predator_history_.size(); ++i) {
-        float x = static_cast<float>(i) / (predator_history_.size() - 1);
-        float y = static_cast<float>(predator_history_[i]) / maxVal;
+    for (size_t i = 0; i < predator_history.size(); ++i) {
+        float x = static_cast<float>(i) / (predator_history.size() - 1);
+        float y = static_cast<float>(predator_history[i]) / maxVal;
         predatorLine[i].position = mapToScreen(x, y);
         predatorLine[i].color = sf::Color::Red;
 
-        x = static_cast<float>(i) / (prey_history_.size() - 1);
-        y = static_cast<float>(prey_history_[i]) / maxVal;
+        x = static_cast<float>(i) / (prey_history.size() - 1);
+        y = static_cast<float>(prey_history[i]) / maxVal;
         preyLine[i].position = mapToScreen(x, y);
         preyLine[i].color = sf::Color::Blue;
     }

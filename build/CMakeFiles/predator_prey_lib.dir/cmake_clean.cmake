@@ -3,8 +3,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/predator_prey_lib.dir/src/agent.cpp.o.d"
   "CMakeFiles/predator_prey_lib.dir/src/grid.cpp.o"
   "CMakeFiles/predator_prey_lib.dir/src/grid.cpp.o.d"
-  "CMakeFiles/predator_prey_lib.dir/src/main.cpp.o"
-  "CMakeFiles/predator_prey_lib.dir/src/main.cpp.o.d"
   "CMakeFiles/predator_prey_lib.dir/src/simulation_controller.cpp.o"
   "CMakeFiles/predator_prey_lib.dir/src/simulation_controller.cpp.o.d"
   "CMakeFiles/predator_prey_lib.dir/src/simulation_report.cpp.o"

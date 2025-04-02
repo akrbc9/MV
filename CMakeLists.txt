@@ -75,7 +75,7 @@ set(SIMULATION_SOURCES
     src/grid.cpp
     src/simulation_controller.cpp
     src/simulation_report.cpp
-    src/main.cpp
+    # src/main.cpp
 )
 
 # Add parameter sweep sources
