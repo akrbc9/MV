@@ -70,10 +70,8 @@ SimulationController::SimulationController(const SimulationConfig& config)
       preyHistory(config.simulationSteps, 0){}
 
 void SimulationController::updateHistory() {
-    if (currentStep < predatorHistory.size()) {
-        predatorHistory[currentStep] = getCurrentPredatorCount();
-        preyHistory[currentStep] = getCurrentPreyCount();
-    }
+    predatorHistory.push_back(getCurrentPredatorCount());
+    preyHistory.push_back(getCurrentPreyCount());
 }
 
 void SimulationController::initialize() {
@@ -189,32 +187,12 @@ void SimulationController::run() {
 }
 
 void SimulationController::runForTimesteps(int numSteps) {
+    
     for (int i = 0; i < numSteps; ++i) {
         if (getCurrentPredatorCount() == 0) {
-            // Instead of just updating counts, properly reset the simulation state
-            std::cout << "Predator extinction detected, resetting simulation state" << std::endl;
-            
-            // Clear the grid completely
-            grid.clearAll();
-            
-            // Set counts to match the empty grid
+            // Handle like Python: set prey to carrying capacity
             setPredatorCount(0);
-            setPreyCount(0);
-            
-            // If you really want to set prey to carrying capacity,
-            // you need to actually create those agents:
-            SimulationConfig config = context.getConfig();
-            int carryingCapacity = static_cast<int>(config.NR);
-            std::cout << "Adding " << carryingCapacity << " prey to match carrying capacity" << std::endl;
-            
-            for (int j = 0; j < carryingCapacity; ++j) {
-                Position pos = randomPosition();
-                auto prey = std::make_shared<Prey>(pos, context);
-                grid.addAgent(prey);
-                incrementPreyCount();
-            }
-            
-            std::cout << "Simulation state reset completed" << std::endl;
+            setPreyCount(context.getConfig().NR);
             break;
         }
         run();

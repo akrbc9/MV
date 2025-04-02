@@ -69,7 +69,7 @@ include CMakeFiles/setup_python_api.dir/progress.make
 CMakeFiles/setup_python_api:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Setting up Python API directory"
 	/opt/anaconda3/envs/CMPLX/bin/cmake -E make_directory /Users/UM/Documents/UM25/Learning/MV/build/python_api
-	/opt/anaconda3/envs/CMPLX/bin/cmake -E copy_if_different /Users/UM/Documents/UM25/Learning/MV/python_api/predator_prey_sim.py /Users/UM/Documents/UM25/Learning/MV/python_api/example_simulation.py /Users/UM/Documents/UM25/Learning/MV/python_api/parameter_sweep.py /Users/UM/Documents/UM25/Learning/MV/python_api/sanity_test.py /Users/UM/Documents/UM25/Learning/MV/build/python_api/
+	/opt/anaconda3/envs/CMPLX/bin/cmake -E copy_if_different /Users/UM/Documents/UM25/Learning/MV/python_api/predator_prey_sim.py /Users/UM/Documents/UM25/Learning/MV/python_api/example_simulation.py /Users/UM/Documents/UM25/Learning/MV/python_api/parameter_sweep.py /Users/UM/Documents/UM25/Learning/MV/build/python_api/
 	/opt/anaconda3/envs/CMPLX/bin/cmake -E create_symlink /Users/UM/Documents/UM25/Learning/MV/build/lib/libsimulation_c_api.dylib /Users/UM/Documents/UM25/Learning/MV/build/python_api/libsimulation_c_api.dylib
 
 CMakeFiles/setup_python_api.dir/codegen:
