@@ -55,6 +55,8 @@ public:
     }
     
     static int getNextId();
+    static void resetIdCounter() { nextId_ = 0; }
+
 
 private:
     static std::atomic<int> nextId_;

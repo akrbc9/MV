@@ -85,6 +85,51 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
 
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+.PHONY : list_install_components/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
+	/opt/anaconda3/envs/CMPLX/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
+	/opt/anaconda3/envs/CMPLX/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
+	/opt/anaconda3/envs/CMPLX/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
+	/opt/anaconda3/envs/CMPLX/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
+	/opt/anaconda3/envs/CMPLX/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
+	/opt/anaconda3/envs/CMPLX/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
+
 # The main all target
 all: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles /Users/UM/Documents/UM25/Learning/MV/build//CMakeFiles/progress.marks
@@ -154,6 +199,56 @@ parameter_sweep: cmake_check_build_system
 parameter_sweep/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/parameter_sweep.dir/build.make CMakeFiles/parameter_sweep.dir/build
 .PHONY : parameter_sweep/fast
+
+#=============================================================================
+# Target rules for targets named simulation_c_api
+
+# Build rule for target.
+simulation_c_api: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 simulation_c_api
+.PHONY : simulation_c_api
+
+# fast build rule for target.
+simulation_c_api/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulation_c_api.dir/build.make CMakeFiles/simulation_c_api.dir/build
+.PHONY : simulation_c_api/fast
+
+#=============================================================================
+# Target rules for targets named setup_python_api
+
+# Build rule for target.
+setup_python_api: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 setup_python_api
+.PHONY : setup_python_api
+
+# fast build rule for target.
+setup_python_api/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/setup_python_api.dir/build.make CMakeFiles/setup_python_api.dir/build
+.PHONY : setup_python_api/fast
+
+c_api/simulation_c_api.o: c_api/simulation_c_api.cpp.o
+.PHONY : c_api/simulation_c_api.o
+
+# target to build an object file
+c_api/simulation_c_api.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulation_c_api.dir/build.make CMakeFiles/simulation_c_api.dir/c_api/simulation_c_api.cpp.o
+.PHONY : c_api/simulation_c_api.cpp.o
+
+c_api/simulation_c_api.i: c_api/simulation_c_api.cpp.i
+.PHONY : c_api/simulation_c_api.i
+
+# target to preprocess a source file
+c_api/simulation_c_api.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulation_c_api.dir/build.make CMakeFiles/simulation_c_api.dir/c_api/simulation_c_api.cpp.i
+.PHONY : c_api/simulation_c_api.cpp.i
+
+c_api/simulation_c_api.s: c_api/simulation_c_api.cpp.s
+.PHONY : c_api/simulation_c_api.s
+
+# target to generate assembly for a file
+c_api/simulation_c_api.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulation_c_api.dir/build.make CMakeFiles/simulation_c_api.dir/c_api/simulation_c_api.cpp.s
+.PHONY : c_api/simulation_c_api.cpp.s
 
 parameter_sweep/src/lhs_sampler.o: parameter_sweep/src/lhs_sampler.cpp.o
 .PHONY : parameter_sweep/src/lhs_sampler.o
@@ -280,6 +375,7 @@ src/main.o: src/main.cpp.o
 
 # target to build an object file
 src/main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey_lib.dir/build.make CMakeFiles/predator_prey_lib.dir/src/main.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey.dir/build.make CMakeFiles/predator_prey.dir/src/main.cpp.o
 .PHONY : src/main.cpp.o
 
@@ -288,6 +384,7 @@ src/main.i: src/main.cpp.i
 
 # target to preprocess a source file
 src/main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey_lib.dir/build.make CMakeFiles/predator_prey_lib.dir/src/main.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey.dir/build.make CMakeFiles/predator_prey.dir/src/main.cpp.i
 .PHONY : src/main.cpp.i
 
@@ -296,6 +393,7 @@ src/main.s: src/main.cpp.s
 
 # target to generate assembly for a file
 src/main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey_lib.dir/build.make CMakeFiles/predator_prey_lib.dir/src/main.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey.dir/build.make CMakeFiles/predator_prey.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
@@ -347,30 +445,6 @@ src/simulation_report.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey_lib.dir/build.make CMakeFiles/predator_prey_lib.dir/src/simulation_report.cpp.s
 .PHONY : src/simulation_report.cpp.s
 
-src/spatial_hash.o: src/spatial_hash.cpp.o
-.PHONY : src/spatial_hash.o
-
-# target to build an object file
-src/spatial_hash.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey_lib.dir/build.make CMakeFiles/predator_prey_lib.dir/src/spatial_hash.cpp.o
-.PHONY : src/spatial_hash.cpp.o
-
-src/spatial_hash.i: src/spatial_hash.cpp.i
-.PHONY : src/spatial_hash.i
-
-# target to preprocess a source file
-src/spatial_hash.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey_lib.dir/build.make CMakeFiles/predator_prey_lib.dir/src/spatial_hash.cpp.i
-.PHONY : src/spatial_hash.cpp.i
-
-src/spatial_hash.s: src/spatial_hash.cpp.s
-.PHONY : src/spatial_hash.s
-
-# target to generate assembly for a file
-src/spatial_hash.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey_lib.dir/build.make CMakeFiles/predator_prey_lib.dir/src/spatial_hash.cpp.s
-.PHONY : src/spatial_hash.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -378,10 +452,19 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
+	@echo "... install"
+	@echo "... install/local"
+	@echo "... install/strip"
+	@echo "... list_install_components"
 	@echo "... rebuild_cache"
+	@echo "... setup_python_api"
 	@echo "... parameter_sweep"
 	@echo "... predator_prey"
 	@echo "... predator_prey_lib"
+	@echo "... simulation_c_api"
+	@echo "... c_api/simulation_c_api.o"
+	@echo "... c_api/simulation_c_api.i"
+	@echo "... c_api/simulation_c_api.s"
 	@echo "... parameter_sweep/src/lhs_sampler.o"
 	@echo "... parameter_sweep/src/lhs_sampler.i"
 	@echo "... parameter_sweep/src/lhs_sampler.s"
@@ -406,9 +489,6 @@ help:
 	@echo "... src/simulation_report.o"
 	@echo "... src/simulation_report.i"
 	@echo "... src/simulation_report.s"
-	@echo "... src/spatial_hash.o"
-	@echo "... src/spatial_hash.i"
-	@echo "... src/spatial_hash.s"
 .PHONY : help
 
 

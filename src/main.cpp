@@ -11,16 +11,16 @@ void printReport(const SimulationReport& report) {
     std::cout << "  Predators: " << report.finalPredatorCount << "\n";
     std::cout << "  Prey: " << report.finalPreyCount << "\n\n";
     
-    std::cout << "Population History:\n";
-    std::cout << std::setw(8) << "Step" << std::setw(12) << "Predators" << std::setw(12) << "Prey\n";
+    // std::cout << "Population History:\n";
+    // std::cout << std::setw(8) << "Step" << std::setw(12) << "Predators" << std::setw(12) << "Prey\n";
 
-    std::vector<int> reportPreyHistory = report.getPreyHistory();
-    std::vector<int> reportPredatorHistory = report.getPredatorHistory();
-    for (size_t i = 0; i < reportPreyHistory.size(); ++i) {
-        std::cout << std::setw(8) << i 
-                  << std::setw(12) << reportPredatorHistory[i]
-                  << std::setw(12) << reportPreyHistory[i] << "\n";
-    }
+    // std::vector<int> reportPreyHistory = report.getPreyHistory();
+    // std::vector<int> reportPredatorHistory = report.getPredatorHistory();
+    // for (size_t i = 0; i < reportPreyHistory.size(); ++i) {
+    //     std::cout << std::setw(8) << i 
+    //               << std::setw(12) << reportPredatorHistory[i]
+    //               << std::setw(12) << reportPreyHistory[i] << "\n";
+    // }
     std::cout << "\nSimulation Configuration:\n";
     std::cout << "  World Size: " << report.getSimulationConfig().worldWidth << " x " 
               << report.getSimulationConfig().worldHeight << "\n";

@@ -66,6 +66,7 @@ CMAKE_BINARY_DIR = /Users/UM/Documents/UM25/Learning/MV/build
 all: CMakeFiles/predator_prey_lib.dir/all
 all: CMakeFiles/predator_prey.dir/all
 all: CMakeFiles/parameter_sweep.dir/all
+all: CMakeFiles/simulation_c_api.dir/all
 all: _deps/nlohmann_json-build/all
 .PHONY : all
 
@@ -73,6 +74,7 @@ all: _deps/nlohmann_json-build/all
 codegen: CMakeFiles/predator_prey_lib.dir/codegen
 codegen: CMakeFiles/predator_prey.dir/codegen
 codegen: CMakeFiles/parameter_sweep.dir/codegen
+codegen: CMakeFiles/simulation_c_api.dir/codegen
 codegen: _deps/nlohmann_json-build/codegen
 .PHONY : codegen
 
@@ -84,6 +86,8 @@ preinstall: _deps/nlohmann_json-build/preinstall
 clean: CMakeFiles/predator_prey_lib.dir/clean
 clean: CMakeFiles/predator_prey.dir/clean
 clean: CMakeFiles/parameter_sweep.dir/clean
+clean: CMakeFiles/simulation_c_api.dir/clean
+clean: CMakeFiles/setup_python_api.dir/clean
 clean: _deps/nlohmann_json-build/clean
 .PHONY : clean
 
@@ -198,6 +202,68 @@ CMakeFiles/parameter_sweep.dir/codegen:
 CMakeFiles/parameter_sweep.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/parameter_sweep.dir/build.make CMakeFiles/parameter_sweep.dir/clean
 .PHONY : CMakeFiles/parameter_sweep.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/simulation_c_api.dir
+
+# All Build rule for target.
+CMakeFiles/simulation_c_api.dir/all: CMakeFiles/predator_prey_lib.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulation_c_api.dir/build.make CMakeFiles/simulation_c_api.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulation_c_api.dir/build.make CMakeFiles/simulation_c_api.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles --progress-num=14,15 "Built target simulation_c_api"
+.PHONY : CMakeFiles/simulation_c_api.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/simulation_c_api.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles 8
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/simulation_c_api.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles 0
+.PHONY : CMakeFiles/simulation_c_api.dir/rule
+
+# Convenience name for target.
+simulation_c_api: CMakeFiles/simulation_c_api.dir/rule
+.PHONY : simulation_c_api
+
+# codegen rule for target.
+CMakeFiles/simulation_c_api.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulation_c_api.dir/build.make CMakeFiles/simulation_c_api.dir/codegen
+.PHONY : CMakeFiles/simulation_c_api.dir/codegen
+
+# clean rule for target.
+CMakeFiles/simulation_c_api.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulation_c_api.dir/build.make CMakeFiles/simulation_c_api.dir/clean
+.PHONY : CMakeFiles/simulation_c_api.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/setup_python_api.dir
+
+# All Build rule for target.
+CMakeFiles/setup_python_api.dir/all: CMakeFiles/simulation_c_api.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/setup_python_api.dir/build.make CMakeFiles/setup_python_api.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/setup_python_api.dir/build.make CMakeFiles/setup_python_api.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles --progress-num=13 "Built target setup_python_api"
+.PHONY : CMakeFiles/setup_python_api.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/setup_python_api.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles 9
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/setup_python_api.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles 0
+.PHONY : CMakeFiles/setup_python_api.dir/rule
+
+# Convenience name for target.
+setup_python_api: CMakeFiles/setup_python_api.dir/rule
+.PHONY : setup_python_api
+
+# codegen rule for target.
+CMakeFiles/setup_python_api.dir/codegen: CMakeFiles/simulation_c_api.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/setup_python_api.dir/build.make CMakeFiles/setup_python_api.dir/codegen
+.PHONY : CMakeFiles/setup_python_api.dir/codegen
+
+# clean rule for target.
+CMakeFiles/setup_python_api.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/setup_python_api.dir/build.make CMakeFiles/setup_python_api.dir/clean
+.PHONY : CMakeFiles/setup_python_api.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

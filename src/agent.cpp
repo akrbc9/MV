@@ -54,10 +54,6 @@ AgentAction::Action Prey::getAction(bool hasInteraction) const {
     // Try to reproduce if below carrying capacity
     std::uniform_real_distribution<double> reproDist(0.0, 1.0);
     if (reproDist(context.getRNG()) < config.RR * (1 - static_cast<double>(context.getPreyCount()) / static_cast<double>(config.NR))) {
-        // Check if the prey can reproduce
-        if (context.getConfig().NR <= context.getPreyCount()) {
-            return AgentAction::Action::NOTHING;
-        }
         // Create new prey at current position
         return AgentAction::Action::REPRODUCE;
     }

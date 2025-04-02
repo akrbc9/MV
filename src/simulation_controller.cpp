@@ -18,12 +18,12 @@ std::uniform_real_distribution<double> SimulationController::deathDist(0, 1);
 
 
 // Helper function to generate random positionå
-Position randomPosition() {
+Position SimulationController::randomPosition() {
     std::mt19937& rng = SimulationController::rng;
     return Position{SimulationController::reproDist(rng), SimulationController::reproDist(rng)};
 }
 
-Position randomDirection() {
+Position SimulationController::randomDirection() {
     std::mt19937& rng = SimulationController::rng;
     double x = 2*SimulationController::reproDist(rng)-1;
     double y = 2*SimulationController::reproDist(rng)-1;
@@ -67,9 +67,7 @@ SimulationController::SimulationController(const SimulationConfig& config)
     : context(config),
       grid(config.cellSize),
       predatorHistory(config.simulationSteps, 0),
-      preyHistory(config.simulationSteps, 0) {
-    initializePopulation();
-}
+      preyHistory(config.simulationSteps, 0){}
 
 void SimulationController::updateHistory() {
     predatorHistory.push_back(getCurrentPredatorCount());
@@ -77,41 +75,48 @@ void SimulationController::updateHistory() {
 }
 
 void SimulationController::initialize() {
-    if (!isRunning) {
-        isRunning = true;
-        isPaused = false;
-        currentStep = 0;
-        startTime = std::chrono::steady_clock::now();
-        predatorHistory.clear();
-        preyHistory.clear();
-        setPredatorCount(0);
-        setPreyCount(0);
-        initializePopulation();
-        updateHistory();
-    }
+    isRunning = true;
+    isPaused = false;
+    currentStep = 0;
+    startTime = std::chrono::steady_clock::now();
+    predatorHistory.clear();
+    preyHistory.clear();
+    
+    // Clear grid before resetting counters
+    grid.clearAll();
+    setPredatorCount(0);
+    setPreyCount(0);
+    
+    initializePopulation();
+    updateHistory();
+
+    Agent::resetIdCounter();
 }
 
 void SimulationController::updateSingleTimestep() {
-    // Get all agents from grid
-    double t = 0;
-
-    // We work with local copies of these two things so we don't get bogged down with race conditions. 
-    // TODO: Is this affecting the sim? 
+    // Get all agents from grid - make a copy to avoid concurrent modification issues
     auto agents = grid.getAgents();
     int agentCount = agents.size();
-
-    // #pragma omp parallel for schedule(dynamic)  
-    // Batch update all agent positions first
+    
+    // Create a vector of indices and shuffle it for randomized updates
+    std::vector<size_t> indices(agentCount);
     for (size_t i = 0; i < agentCount; ++i) {
-        int randomIndex = randomAgentIndex();
-        auto agent = agents[randomIndex];
-
-        if(!agent || !agent->isAlive()) {return;}
-        updateSingleAgent(agent);
+        indices[i] = i;
+    }
+    std::shuffle(indices.begin(), indices.end(), SimulationController::rng);
+    
+    // Process agents in random order
+    for (size_t i = 0; i < agentCount; ++i) {
+        size_t idx = indices[i];
+        if (idx < agents.size()) {  // Safety check
+            auto agent = agents[idx];
+            if (agent && agent->isAlive()) {
+                updateSingleAgent(agent);
+            }
+        }
     }
     
     currentStep++;
-    // Update history
     updateHistory();
 }
 
@@ -144,13 +149,19 @@ void SimulationController::updateSingleAgent(std::shared_ptr<Agent> agent){
         if (action == AgentAction::Action::REPRODUCE) {
             std::shared_ptr<Agent> newAgent;
             if (agent->getType() == Agent::Type::PREY) {
-                newAgent = std::make_shared<Prey>(newPosition, context);
-                incrementPreyCount();
-            } else {
+                // Double-check carrying capacity before actually creating the agent
+                if (getCurrentPreyCount() < context.getConfig().NR) {
+                    newAgent = std::make_shared<Prey>(newPosition, context);
+                    incrementPreyCount();
+                    grid.addAgent(newAgent);
+                } 
+            }   
+            else {
                 newAgent = std::make_shared<Predator>(newPosition, context);
                 incrementPredatorCount();
+                grid.addAgent(newAgent);
+
             }
-            grid.addAgent(newAgent);
         }
 
         else if (action == AgentAction::Action::DIE) {
@@ -176,7 +187,14 @@ void SimulationController::run() {
 }
 
 void SimulationController::runForTimesteps(int numSteps) {
+    
     for (int i = 0; i < numSteps; ++i) {
+        if (getCurrentPredatorCount() == 0) {
+            // Handle like Python: set prey to carrying capacity
+            setPredatorCount(0);
+            setPreyCount(context.getConfig().NR);
+            break;
+        }
         run();
     }
 }
@@ -240,6 +258,7 @@ int SimulationController::getCurrentPreyCount() const {
 void SimulationController::resetStats() {
     setPredatorCount(0);
     setPreyCount(0);
+    grid.clearAll();
 }
 
 SimulationReport SimulationController::getReport() const {

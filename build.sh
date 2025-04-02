@@ -2,8 +2,6 @@
 
 rm -rf build
 mkdir build && cd build 
-cmake -DCMAKE_CXX_COMPILER=/opt/homebrew/opt/llvm/bin/clang++ ..
+cmake ..
 make
-cd bin
-./predator_prey
-
+make setup_python_api
