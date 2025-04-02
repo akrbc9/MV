@@ -206,6 +206,7 @@ add_custom_target(setup_python_api
         ${CMAKE_CURRENT_SOURCE_DIR}/python_api/predator_prey_sim.py
         ${CMAKE_CURRENT_SOURCE_DIR}/python_api/example_simulation.py
         ${CMAKE_CURRENT_SOURCE_DIR}/python_api/parameter_sweep.py
+        ${CMAKE_CURRENT_SOURCE_DIR}/python_api/sanity_test.py
         ${CMAKE_BINARY_DIR}/python_api/
     COMMAND ${CMAKE_COMMAND} -E create_symlink
         ${CMAKE_BINARY_DIR}/lib/libsimulation_c_api${CMAKE_SHARED_LIBRARY_SUFFIX}

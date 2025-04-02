@@ -6,7 +6,7 @@
 class SimulationContext {
 public:
     explicit SimulationContext(const SimulationConfig& cfg)
-        : config(cfg), rng(std::random_device()()) {}
+    : config(cfg), predatorCount(0), preyCount(0), rng(std::random_device()()) {}
     
     // Prevent copying
     SimulationContext(const SimulationContext&) = delete;
