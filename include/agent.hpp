@@ -33,7 +33,12 @@ public:
     virtual ~Agent() = default;
     
     // Update the update method to take a shared_ptr reference when necessary
-    virtual AgentAction::Action getAction(bool hasInteraction) const { return AgentAction::Action::NOTHING; }
+    virtual AgentAction::Action getAction(bool hasInteraction) const { 
+        if(hasInteraction) {
+            return AgentAction::Action::NOTHING;
+        }
+        return AgentAction::Action::NOTHING; 
+    }
     
     virtual bool isAlive() const { return alive; }
     Position getPosition() const { return position; }
@@ -55,7 +60,7 @@ public:
     }
     
     static int getNextId();
-    static void resetIdCounter() { nextId_ = 0; }
+    static void resetIdCounter();
 
 
 private:

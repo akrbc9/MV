@@ -109,6 +109,10 @@ void SimulationController::updateSingleTimestep() {
     
     // Process agents in random order
     for (size_t i = 0; i < agentCount; ++i) {
+        if(getCurrentPredatorCount() == 0){
+            setPreyCount(context.getConfig().NR);
+            break;
+        }
         size_t idx = indices[i];
         if (idx < agents.size()) {  // Safety check
             auto agent = agents[idx];
@@ -116,7 +120,7 @@ void SimulationController::updateSingleTimestep() {
                 updateSingleAgent(agent);
             }
         }
-    }
+    }   
     
     currentStep++;
     updateHistory();
@@ -190,34 +194,6 @@ void SimulationController::run() {
 
 void SimulationController::runForTimesteps(int numSteps) {
     for (int i = 0; i < numSteps; ++i) {
-        //TODO: Implement this properly
-        // if (getCurrentPredatorCount() == 0) {
-        //     // Instead of just updating counts, properly reset the simulation state
-        //     std::cout << "Predator extinction detected, resetting simulation state" << std::endl;
-            
-        //     // Clear the grid completely
-        //     grid.clearAll();
-            
-        //     // Set counts to match the empty grid
-        //     setPredatorCount(0);
-        //     setPreyCount(0);
-            
-        //     // If you really want to set prey to carrying capacity,
-        //     // you need to actually create those agents:
-        //     SimulationConfig config = context.getConfig();
-        //     int carryingCapacity = static_cast<int>(config.NR);
-        //     std::cout << "Adding " << carryingCapacity << " prey to match carrying capacity" << std::endl;
-            
-        //     for (int j = 0; j < carryingCapacity; ++j) {
-        //         Position pos = randomPosition();
-        //         auto prey = std::make_shared<Prey>(pos, context);
-        //         grid.addAgent(prey);
-        //         incrementPreyCount();
-        //     }
-            
-        //     std::cout << "Simulation state reset completed" << std::endl;
-        //     break;
-        // }
         run();
     }
 }

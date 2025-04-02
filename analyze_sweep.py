@@ -106,6 +106,7 @@ def plot_results(df):
 
     plt.tight_layout()
     plt.savefig(os.path.join(plots_dir, 'parameter_sweep_results.png'))
+    plt.show()
     plt.close()
 
 
@@ -114,9 +115,9 @@ def main():
     # Run parameter sweep
     print("Running parameter sweep...")
     df = run_parameter_sweep(
-        num_samples=5,    # Number of different parameter combinations
-        num_reruns=2,       # Number of times to rerun each combination
-        num_sims=20,         # Number of simulations per rerun
+        num_samples=1000,    # Number of different parameter combinations
+        num_reruns=5,       # Number of times to rerun each combination
+        num_sims=5,         # Number of simulations per rerun
         num_timesteps=500,  # Number of timesteps per simulation
         output_dir="./results"
     )

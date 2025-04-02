@@ -128,12 +128,27 @@ CMakeFiles/predator_prey_lib.dir/src/simulation_report.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/predator_prey_lib.dir/src/simulation_report.cpp.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/UM/Documents/UM25/Learning/MV/src/simulation_report.cpp -o CMakeFiles/predator_prey_lib.dir/src/simulation_report.cpp.s
 
+CMakeFiles/predator_prey_lib.dir/src/main.cpp.o: CMakeFiles/predator_prey_lib.dir/flags.make
+CMakeFiles/predator_prey_lib.dir/src/main.cpp.o: /Users/UM/Documents/UM25/Learning/MV/src/main.cpp
+CMakeFiles/predator_prey_lib.dir/src/main.cpp.o: CMakeFiles/predator_prey_lib.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/predator_prey_lib.dir/src/main.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/predator_prey_lib.dir/src/main.cpp.o -MF CMakeFiles/predator_prey_lib.dir/src/main.cpp.o.d -o CMakeFiles/predator_prey_lib.dir/src/main.cpp.o -c /Users/UM/Documents/UM25/Learning/MV/src/main.cpp
+
+CMakeFiles/predator_prey_lib.dir/src/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/predator_prey_lib.dir/src/main.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/UM/Documents/UM25/Learning/MV/src/main.cpp > CMakeFiles/predator_prey_lib.dir/src/main.cpp.i
+
+CMakeFiles/predator_prey_lib.dir/src/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/predator_prey_lib.dir/src/main.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/UM/Documents/UM25/Learning/MV/src/main.cpp -o CMakeFiles/predator_prey_lib.dir/src/main.cpp.s
+
 # Object files for target predator_prey_lib
 predator_prey_lib_OBJECTS = \
 "CMakeFiles/predator_prey_lib.dir/src/agent.cpp.o" \
 "CMakeFiles/predator_prey_lib.dir/src/grid.cpp.o" \
 "CMakeFiles/predator_prey_lib.dir/src/simulation_controller.cpp.o" \
-"CMakeFiles/predator_prey_lib.dir/src/simulation_report.cpp.o"
+"CMakeFiles/predator_prey_lib.dir/src/simulation_report.cpp.o" \
+"CMakeFiles/predator_prey_lib.dir/src/main.cpp.o"
 
 # External object files for target predator_prey_lib
 predator_prey_lib_EXTERNAL_OBJECTS =
@@ -142,9 +157,10 @@ lib/libpredator_prey_lib.a: CMakeFiles/predator_prey_lib.dir/src/agent.cpp.o
 lib/libpredator_prey_lib.a: CMakeFiles/predator_prey_lib.dir/src/grid.cpp.o
 lib/libpredator_prey_lib.a: CMakeFiles/predator_prey_lib.dir/src/simulation_controller.cpp.o
 lib/libpredator_prey_lib.a: CMakeFiles/predator_prey_lib.dir/src/simulation_report.cpp.o
+lib/libpredator_prey_lib.a: CMakeFiles/predator_prey_lib.dir/src/main.cpp.o
 lib/libpredator_prey_lib.a: CMakeFiles/predator_prey_lib.dir/build.make
 lib/libpredator_prey_lib.a: CMakeFiles/predator_prey_lib.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX static library lib/libpredator_prey_lib.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX static library lib/libpredator_prey_lib.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/predator_prey_lib.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/predator_prey_lib.dir/link.txt --verbose=$(VERBOSE)
 

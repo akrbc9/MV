@@ -200,56 +200,6 @@ parameter_sweep/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/parameter_sweep.dir/build.make CMakeFiles/parameter_sweep.dir/build
 .PHONY : parameter_sweep/fast
 
-#=============================================================================
-# Target rules for targets named simulation_c_api
-
-# Build rule for target.
-simulation_c_api: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 simulation_c_api
-.PHONY : simulation_c_api
-
-# fast build rule for target.
-simulation_c_api/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulation_c_api.dir/build.make CMakeFiles/simulation_c_api.dir/build
-.PHONY : simulation_c_api/fast
-
-#=============================================================================
-# Target rules for targets named setup_python_api
-
-# Build rule for target.
-setup_python_api: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 setup_python_api
-.PHONY : setup_python_api
-
-# fast build rule for target.
-setup_python_api/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/setup_python_api.dir/build.make CMakeFiles/setup_python_api.dir/build
-.PHONY : setup_python_api/fast
-
-c_api/simulation_c_api.o: c_api/simulation_c_api.cpp.o
-.PHONY : c_api/simulation_c_api.o
-
-# target to build an object file
-c_api/simulation_c_api.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulation_c_api.dir/build.make CMakeFiles/simulation_c_api.dir/c_api/simulation_c_api.cpp.o
-.PHONY : c_api/simulation_c_api.cpp.o
-
-c_api/simulation_c_api.i: c_api/simulation_c_api.cpp.i
-.PHONY : c_api/simulation_c_api.i
-
-# target to preprocess a source file
-c_api/simulation_c_api.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulation_c_api.dir/build.make CMakeFiles/simulation_c_api.dir/c_api/simulation_c_api.cpp.i
-.PHONY : c_api/simulation_c_api.cpp.i
-
-c_api/simulation_c_api.s: c_api/simulation_c_api.cpp.s
-.PHONY : c_api/simulation_c_api.s
-
-# target to generate assembly for a file
-c_api/simulation_c_api.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulation_c_api.dir/build.make CMakeFiles/simulation_c_api.dir/c_api/simulation_c_api.cpp.s
-.PHONY : c_api/simulation_c_api.cpp.s
-
 parameter_sweep/src/lhs_sampler.o: parameter_sweep/src/lhs_sampler.cpp.o
 .PHONY : parameter_sweep/src/lhs_sampler.o
 
@@ -375,6 +325,7 @@ src/main.o: src/main.cpp.o
 
 # target to build an object file
 src/main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey_lib.dir/build.make CMakeFiles/predator_prey_lib.dir/src/main.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey.dir/build.make CMakeFiles/predator_prey.dir/src/main.cpp.o
 .PHONY : src/main.cpp.o
 
@@ -383,6 +334,7 @@ src/main.i: src/main.cpp.i
 
 # target to preprocess a source file
 src/main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey_lib.dir/build.make CMakeFiles/predator_prey_lib.dir/src/main.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey.dir/build.make CMakeFiles/predator_prey.dir/src/main.cpp.i
 .PHONY : src/main.cpp.i
 
@@ -391,6 +343,7 @@ src/main.s: src/main.cpp.s
 
 # target to generate assembly for a file
 src/main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey_lib.dir/build.make CMakeFiles/predator_prey_lib.dir/src/main.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/predator_prey.dir/build.make CMakeFiles/predator_prey.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
@@ -454,14 +407,9 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... setup_python_api"
 	@echo "... parameter_sweep"
 	@echo "... predator_prey"
 	@echo "... predator_prey_lib"
-	@echo "... simulation_c_api"
-	@echo "... c_api/simulation_c_api.o"
-	@echo "... c_api/simulation_c_api.i"
-	@echo "... c_api/simulation_c_api.s"
 	@echo "... parameter_sweep/src/lhs_sampler.o"
 	@echo "... parameter_sweep/src/lhs_sampler.i"
 	@echo "... parameter_sweep/src/lhs_sampler.s"

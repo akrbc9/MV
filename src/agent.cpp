@@ -14,6 +14,11 @@ int Agent::getNextId() {
     return nextId_++;
 }
 
+void Agent::resetIdCounter() {
+    // Simple atomic reset
+    nextId_.store(0, std::memory_order_relaxed);
+}
+
 AgentAction::Action Predator::getAction(bool hasInteraction) const {
     if (!isAlive()) return AgentAction::Action::NOTHING;
 

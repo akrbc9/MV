@@ -46,7 +46,7 @@ void SampleManager::generateSamples() {
 std::vector<double> SampleManager::getSample(int index) const {
     std::vector<double> sample;
     for (const auto& param_samples : parameter_samples_) {
-        if (index < param_samples.size()) {
+        if (index < static_cast<int>(param_samples.size())) {
             sample.push_back(param_samples[index]);
         }
     }

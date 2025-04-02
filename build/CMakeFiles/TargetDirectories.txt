@@ -1,8 +1,6 @@
 /Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles/predator_prey_lib.dir
 /Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles/predator_prey.dir
 /Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles/parameter_sweep.dir
-/Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles/simulation_c_api.dir
-/Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles/setup_python_api.dir
 /Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles/edit_cache.dir
 /Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles/rebuild_cache.dir
 /Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles/list_install_components.dir

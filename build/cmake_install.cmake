@@ -76,47 +76,6 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
   endif()
 endif()
 
-if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/Users/UM/Documents/UM25/Learning/MV/build/lib/libsimulation_c_api.dylib")
-  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libsimulation_c_api.dylib" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libsimulation_c_api.dylib")
-    execute_process(COMMAND /usr/bin/install_name_tool
-      -delete_rpath "/opt/homebrew/lib"
-      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libsimulation_c_api.dylib")
-    if(CMAKE_INSTALL_DO_STRIP)
-      execute_process(COMMAND "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip" -x "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libsimulation_c_api.dylib")
-    endif()
-  endif()
-endif()
-
-if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-endif()
-
-if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/predator_prey" TYPE FILE FILES
-    "/Users/UM/Documents/UM25/Learning/MV/include/position.hpp"
-    "/Users/UM/Documents/UM25/Learning/MV/include/simulation_config.hpp"
-    "/Users/UM/Documents/UM25/Learning/MV/include/simulation_context.hpp"
-    "/Users/UM/Documents/UM25/Learning/MV/include/agent.hpp"
-    "/Users/UM/Documents/UM25/Learning/MV/include/grid.hpp"
-    "/Users/UM/Documents/UM25/Learning/MV/include/simulation_controller.hpp"
-    "/Users/UM/Documents/UM25/Learning/MV/include/simulation_report.hpp"
-    "/Users/UM/Documents/UM25/Learning/MV/parameter_sweep/include/parameter_sweep.hpp"
-    "/Users/UM/Documents/UM25/Learning/MV/parameter_sweep/include/sample_manager.hpp"
-    "/Users/UM/Documents/UM25/Learning/MV/parameter_sweep/include/lhs_sampler.hpp"
-    "/Users/UM/Documents/UM25/Learning/MV/c_api/simulation_c_api.h"
-    )
-endif()
-
-if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/python_api" TYPE FILE FILES
-    "/Users/UM/Documents/UM25/Learning/MV/python_api/predator_prey_sim.py"
-    "/Users/UM/Documents/UM25/Learning/MV/python_api/example_simulation.py"
-    "/Users/UM/Documents/UM25/Learning/MV/python_api/parameter_sweep.py"
-    "/Users/UM/Documents/UM25/Learning/MV/python_api/README.md"
-    )
-endif()
-
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)

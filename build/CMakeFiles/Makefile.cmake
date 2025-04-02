@@ -169,6 +169,4 @@ set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/predator_prey_lib.dir/DependInfo.cmake"
   "CMakeFiles/predator_prey.dir/DependInfo.cmake"
   "CMakeFiles/parameter_sweep.dir/DependInfo.cmake"
-  "CMakeFiles/simulation_c_api.dir/DependInfo.cmake"
-  "CMakeFiles/setup_python_api.dir/DependInfo.cmake"
   )

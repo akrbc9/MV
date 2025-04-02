@@ -67,12 +67,13 @@ int main() {
     config.randomizeInitialPositions = true;
     
     // Population dynamics parameters
-    config.NR = 500.0;   // Carrying capacity of Prey (nr)
+    config.NR = 446;   // Carrying capacity of Prey (nr)
     config.RR = 0.1;     // Reproduction rate of Prey (rr)
-    config.DR = 1.0;     // Death rate of prey when encountering predator (dr)
-    config.DF = 0.1;     // Death rate of predator when no prey around (df)
-    config.RF = 0.5;     // Reproduction rate of predator (rf)
+    config.DR = 1;     // Death rate of prey when encountering predator (dr)
+    config.DF = 0.0733333;     // Death rate of predator when no prey around (df)
+    config.RF = 0.443333;     // Reproduction rate of predator (rf)
     
+    // Problem @ 446,0.0533333,0.0733333,0.443333. NR, DR, DF, RF
     // Output parameters
     config.saveStatistics = true;
     config.outputFile = "simulation_stats.csv";

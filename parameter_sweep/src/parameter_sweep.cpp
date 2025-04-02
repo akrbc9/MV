@@ -8,8 +8,8 @@
 #include <chrono>
 #include <numeric>
 #include <cmath>
-#include <future>  // For async and future
-#include "thread_pool.hpp"
+// #include <future>  // For async and future
+// #include "thread_pool.hpp"
 
 namespace fs = std::__fs::filesystem;
 
@@ -26,9 +26,9 @@ void ParameterSweep::run(int num_samples, int num_reruns, int num_sims, int num_
     // Define parameter ranges for LHS
     std::vector<LHSSampler::ParameterRange> ranges = {
         {200, 800},  // NR (carrying capacity)
-        {0, 1.0},       // DR (death rate)
-        {0, 1.0},      // DF (predator death rate)
-        {0, 1.0}        // RF (predator reproduction rate)
+        {0.5, 1.0},       // DR (death rate)
+        {0, 0.25},      // DF (predator death rate)
+        {0.25, 0.75}        // RF (predator reproduction rate)
     };
 
     // Create LHS sampler
@@ -36,10 +36,10 @@ void ParameterSweep::run(int num_samples, int num_reruns, int num_sims, int num_
     auto samples = sampler.generateAllSamples();
 
     // Get the number of hardware threads
-    unsigned int num_threads = std::min(static_cast<unsigned int>(std::thread::hardware_concurrency()), static_cast<unsigned int>(num_samples));
+    // unsigned int num_threads = std::min(static_cast<unsigned int>(std::thread::hardware_concurrency()), static_cast<unsigned int>(num_samples));
 
     // Create a thread pool
-    ThreadPool pool(num_threads);
+    // ThreadPool pool(num_threads);
 
     // Enqueue tasks in the thread pool
     for (int i = 0; i < num_samples; ++i) {
@@ -69,7 +69,7 @@ void ParameterSweep::run(int num_samples, int num_reruns, int num_sims, int num_
 
             // Run single sample and get results
             auto [avg_prey, std_prey, avg_pred, std_pred] = runSingleSample(config, num_reruns, num_sims, num_timesteps);
-
+            double normalized_prey = avg_prey/config.NR;
             auto end_time = std::chrono::high_resolution_clock::now();
             auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
             std::cout << "Completed sample " << (i + 1) << " of " << num_samples 
@@ -85,7 +85,8 @@ void ParameterSweep::run(int num_samples, int num_reruns, int num_sims, int num_
                  << avg_prey << ","
                  << std_prey << ","
                  << avg_pred << ","
-                 << std_pred << "\n";
+                 << std_pred << "," 
+                 << normalized_prey << "\n";
 
             // Append the result line to the buffer (output_lines)
             output_lines.push_back(line.str());
