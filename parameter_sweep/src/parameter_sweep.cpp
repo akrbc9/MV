@@ -98,7 +98,7 @@ void ParameterSweep::run(int num_samples, int num_reruns, int num_sims, int num_
     // Write all results to file at once (this is done after all simulations are complete)
     std::string filename = generateOutputFilename();
     std::ofstream outfile(filename);
-    outfile << "sample,nr,dr,df,rf,avg_prey,std_prey,avg_predators,std_predators\n";
+    outfile << "sample,nr,dr,df,rf,avg_prey,std_prey,avg_predators,std_predators,normalized_prey\n";
 
     // Write the buffered results
     for (const auto& line : output_lines) {
