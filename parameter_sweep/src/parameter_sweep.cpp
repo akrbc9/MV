@@ -28,7 +28,7 @@ void ParameterSweep::run(int num_samples, int num_reruns, int num_sims, int num_
         {200, 800},  // NR (carrying capacity)
         {0.5, 1.0},       // DR (death rate)
         {0, 0.25},      // DF (predator death rate)
-        {0.25, 0.75}        // RF (predator reproduction rate)
+        {0.25, 0.75}    // RF (predator reproduction rate)
     };
 
     // Create LHS sampler
