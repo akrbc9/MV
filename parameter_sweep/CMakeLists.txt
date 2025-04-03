@@ -30,14 +30,12 @@ FetchContent_MakeAvailable(nlohmann_json)
 # Add source files
 set(SOURCES
     src/parameter_sweep.cpp
-    src/sample_manager.cpp
     src/lhs_sampler.cpp
 )
 
 # Add header files
 set(HEADERS
     include/parameter_sweep.hpp
-    include/sample_manager.hpp
     include/lhs_sampler.hpp
 ) 
 

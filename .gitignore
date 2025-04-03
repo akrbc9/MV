@@ -9,7 +9,11 @@ parameter_sweep/results/parameter_sweep_results.csv
 parameter_sweep/plots/parameter_sweep_results.png
 parameter_sweep/Makefil
 parameter_sweep/cmake_install.cmake
-build/
+build/*
 CMakeFiles/
 cmake_install.cmake
 .vscode 
+build/CMakeFiles/CMakeConfigureLog.yaml
+build/CMakeFiles/3.31.2/CMakeDetermineCompilerABI_C.bin
+build/CMakeFiles/3.31.2/CMakeDetermineCompilerABI_CXX.bin
+build/lib/libpredator_prey_lib.a
