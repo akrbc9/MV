@@ -80,7 +80,6 @@ set(SIMULATION_SOURCES
 # Add parameter sweep sources
 set(PARAMETER_SWEEP_SOURCES
     parameter_sweep/src/parameter_sweep.cpp
-    parameter_sweep/src/sample_manager.cpp
     parameter_sweep/src/lhs_sampler.cpp
 )
 
@@ -94,7 +93,6 @@ set(HEADERS
     include/simulation_controller.hpp
     include/simulation_report.hpp
     parameter_sweep/include/parameter_sweep.hpp
-    parameter_sweep/include/sample_manager.hpp
     parameter_sweep/include/lhs_sampler.hpp
 )
 

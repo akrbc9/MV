@@ -3,8 +3,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/parameter_sweep.dir/parameter_sweep/src/lhs_sampler.cpp.o.d"
   "CMakeFiles/parameter_sweep.dir/parameter_sweep/src/parameter_sweep.cpp.o"
   "CMakeFiles/parameter_sweep.dir/parameter_sweep/src/parameter_sweep.cpp.o.d"
-  "CMakeFiles/parameter_sweep.dir/parameter_sweep/src/sample_manager.cpp.o"
-  "CMakeFiles/parameter_sweep.dir/parameter_sweep/src/sample_manager.cpp.o.d"
   "bin/parameter_sweep"
   "bin/parameter_sweep.pdb"
 )

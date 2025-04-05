@@ -86,24 +86,10 @@ CMakeFiles/parameter_sweep.dir/parameter_sweep/src/parameter_sweep.cpp.s: cmake_
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/parameter_sweep.dir/parameter_sweep/src/parameter_sweep.cpp.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/UM/Documents/UM25/Learning/MV/parameter_sweep/src/parameter_sweep.cpp -o CMakeFiles/parameter_sweep.dir/parameter_sweep/src/parameter_sweep.cpp.s
 
-CMakeFiles/parameter_sweep.dir/parameter_sweep/src/sample_manager.cpp.o: CMakeFiles/parameter_sweep.dir/flags.make
-CMakeFiles/parameter_sweep.dir/parameter_sweep/src/sample_manager.cpp.o: /Users/UM/Documents/UM25/Learning/MV/parameter_sweep/src/sample_manager.cpp
-CMakeFiles/parameter_sweep.dir/parameter_sweep/src/sample_manager.cpp.o: CMakeFiles/parameter_sweep.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/parameter_sweep.dir/parameter_sweep/src/sample_manager.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/parameter_sweep.dir/parameter_sweep/src/sample_manager.cpp.o -MF CMakeFiles/parameter_sweep.dir/parameter_sweep/src/sample_manager.cpp.o.d -o CMakeFiles/parameter_sweep.dir/parameter_sweep/src/sample_manager.cpp.o -c /Users/UM/Documents/UM25/Learning/MV/parameter_sweep/src/sample_manager.cpp
-
-CMakeFiles/parameter_sweep.dir/parameter_sweep/src/sample_manager.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/parameter_sweep.dir/parameter_sweep/src/sample_manager.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/UM/Documents/UM25/Learning/MV/parameter_sweep/src/sample_manager.cpp > CMakeFiles/parameter_sweep.dir/parameter_sweep/src/sample_manager.cpp.i
-
-CMakeFiles/parameter_sweep.dir/parameter_sweep/src/sample_manager.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/parameter_sweep.dir/parameter_sweep/src/sample_manager.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/UM/Documents/UM25/Learning/MV/parameter_sweep/src/sample_manager.cpp -o CMakeFiles/parameter_sweep.dir/parameter_sweep/src/sample_manager.cpp.s
-
 CMakeFiles/parameter_sweep.dir/parameter_sweep/src/lhs_sampler.cpp.o: CMakeFiles/parameter_sweep.dir/flags.make
 CMakeFiles/parameter_sweep.dir/parameter_sweep/src/lhs_sampler.cpp.o: /Users/UM/Documents/UM25/Learning/MV/parameter_sweep/src/lhs_sampler.cpp
 CMakeFiles/parameter_sweep.dir/parameter_sweep/src/lhs_sampler.cpp.o: CMakeFiles/parameter_sweep.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/parameter_sweep.dir/parameter_sweep/src/lhs_sampler.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/parameter_sweep.dir/parameter_sweep/src/lhs_sampler.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/parameter_sweep.dir/parameter_sweep/src/lhs_sampler.cpp.o -MF CMakeFiles/parameter_sweep.dir/parameter_sweep/src/lhs_sampler.cpp.o.d -o CMakeFiles/parameter_sweep.dir/parameter_sweep/src/lhs_sampler.cpp.o -c /Users/UM/Documents/UM25/Learning/MV/parameter_sweep/src/lhs_sampler.cpp
 
 CMakeFiles/parameter_sweep.dir/parameter_sweep/src/lhs_sampler.cpp.i: cmake_force
@@ -117,14 +103,12 @@ CMakeFiles/parameter_sweep.dir/parameter_sweep/src/lhs_sampler.cpp.s: cmake_forc
 # Object files for target parameter_sweep
 parameter_sweep_OBJECTS = \
 "CMakeFiles/parameter_sweep.dir/parameter_sweep/src/parameter_sweep.cpp.o" \
-"CMakeFiles/parameter_sweep.dir/parameter_sweep/src/sample_manager.cpp.o" \
 "CMakeFiles/parameter_sweep.dir/parameter_sweep/src/lhs_sampler.cpp.o"
 
 # External object files for target parameter_sweep
 parameter_sweep_EXTERNAL_OBJECTS =
 
 bin/parameter_sweep: CMakeFiles/parameter_sweep.dir/parameter_sweep/src/parameter_sweep.cpp.o
-bin/parameter_sweep: CMakeFiles/parameter_sweep.dir/parameter_sweep/src/sample_manager.cpp.o
 bin/parameter_sweep: CMakeFiles/parameter_sweep.dir/parameter_sweep/src/lhs_sampler.cpp.o
 bin/parameter_sweep: CMakeFiles/parameter_sweep.dir/build.make
 bin/parameter_sweep: lib/libpredator_prey_lib.a
@@ -132,7 +116,7 @@ bin/parameter_sweep: /opt/homebrew/lib/libsfml-graphics.3.0.0.dylib
 bin/parameter_sweep: /opt/homebrew/lib/libsfml-window.3.0.0.dylib
 bin/parameter_sweep: /opt/homebrew/lib/libsfml-system.3.0.0.dylib
 bin/parameter_sweep: CMakeFiles/parameter_sweep.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable bin/parameter_sweep"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/UM/Documents/UM25/Learning/MV/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable bin/parameter_sweep"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/parameter_sweep.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

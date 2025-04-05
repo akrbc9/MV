@@ -248,30 +248,6 @@ parameter_sweep/src/parameter_sweep.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/parameter_sweep.dir/build.make CMakeFiles/parameter_sweep.dir/parameter_sweep/src/parameter_sweep.cpp.s
 .PHONY : parameter_sweep/src/parameter_sweep.cpp.s
 
-parameter_sweep/src/sample_manager.o: parameter_sweep/src/sample_manager.cpp.o
-.PHONY : parameter_sweep/src/sample_manager.o
-
-# target to build an object file
-parameter_sweep/src/sample_manager.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/parameter_sweep.dir/build.make CMakeFiles/parameter_sweep.dir/parameter_sweep/src/sample_manager.cpp.o
-.PHONY : parameter_sweep/src/sample_manager.cpp.o
-
-parameter_sweep/src/sample_manager.i: parameter_sweep/src/sample_manager.cpp.i
-.PHONY : parameter_sweep/src/sample_manager.i
-
-# target to preprocess a source file
-parameter_sweep/src/sample_manager.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/parameter_sweep.dir/build.make CMakeFiles/parameter_sweep.dir/parameter_sweep/src/sample_manager.cpp.i
-.PHONY : parameter_sweep/src/sample_manager.cpp.i
-
-parameter_sweep/src/sample_manager.s: parameter_sweep/src/sample_manager.cpp.s
-.PHONY : parameter_sweep/src/sample_manager.s
-
-# target to generate assembly for a file
-parameter_sweep/src/sample_manager.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/parameter_sweep.dir/build.make CMakeFiles/parameter_sweep.dir/parameter_sweep/src/sample_manager.cpp.s
-.PHONY : parameter_sweep/src/sample_manager.cpp.s
-
 src/agent.o: src/agent.cpp.o
 .PHONY : src/agent.o
 
@@ -416,9 +392,6 @@ help:
 	@echo "... parameter_sweep/src/parameter_sweep.o"
 	@echo "... parameter_sweep/src/parameter_sweep.i"
 	@echo "... parameter_sweep/src/parameter_sweep.s"
-	@echo "... parameter_sweep/src/sample_manager.o"
-	@echo "... parameter_sweep/src/sample_manager.i"
-	@echo "... parameter_sweep/src/sample_manager.s"
 	@echo "... src/agent.o"
 	@echo "... src/agent.i"
 	@echo "... src/agent.s"
