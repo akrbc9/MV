@@ -3,11 +3,10 @@
 #include <string>
 #include <vector>
 #include <tuple>
-#include <nlohmann/json.hpp>
 #include "simulation_config.hpp"
 #include "simulation_controller.hpp"
 #include "simulation_report.hpp"
-#include "thread_pool.hpp"
+
 class ParameterSweep {
 public:
     ParameterSweep(const std::string& output_dir);

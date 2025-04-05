@@ -1,2 +1,0 @@
-/Users/UM/Documents/UM25/Learning/MV/parameter_sweep/CMakeFiles/edit_cache.dir
-/Users/UM/Documents/UM25/Learning/MV/parameter_sweep/CMakeFiles/rebuild_cache.dir
