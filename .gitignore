@@ -9,7 +9,7 @@ parameter_sweep/results/parameter_sweep_results.csv
 parameter_sweep/plots/parameter_sweep_results.png
 parameter_sweep/Makefil
 parameter_sweep/cmake_install.cmake
-build/*
+build/
 CMakeFiles/
 cmake_install.cmake
 .vscode 
